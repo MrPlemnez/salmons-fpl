@@ -681,12 +681,12 @@ async function shareAward(card) {
   c.width = W; c.height = H;
   const x = c.getContext("2d");
   const gold = key === "motw";
-  x.fillStyle = gold ? "#EC4C24" : "#FFFFFF"; x.fillRect(0, 0, W, H);
+  x.fillStyle = gold ? "#D97757" : "#FFFFFF"; x.fillRect(0, 0, W, H);
   x.fillStyle = "#0A0A0A"; x.fillRect(0, 0, W, 230);
-  x.fillStyle = "#EC4C24"; x.fillRect(0, 230, W, 12);
+  x.fillStyle = "#D97757"; x.fillRect(0, 230, W, 12);
   const crest = await new Promise((res) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = "icons/crest.png"; });
   if (crest) x.drawImage(crest, 60, 35, 160, 160);
-  x.fillStyle = "#EC4C24"; x.font = '600 30px "JetBrains Mono", monospace';
+  x.fillStyle = "#D97757"; x.font = '600 30px "JetBrains Mono", monospace';
   x.fillText(`FPL DRAFT · ${D.meta.season} · GW${g}`, 250, 92);
   x.fillStyle = "#FFFFFF"; x.font = '96px "Bebas Neue", Impact, sans-serif';
   x.fillText(D.meta.app.toUpperCase(), 250, 182);

@@ -7,8 +7,8 @@
   --ink-2: #3A3A3A;
   --muted: #6E6E6E;
   --soft: #F5F5F5;
-  --y: #EC4C24;
-  --y-tint: #FDE5DD;
+  --y: #D97757;
+  --y-tint: #F8E7E0;
   --on-y: #0A0A0A;
   --good: #2E7A4C;
   --good-bg: #E5F1E9;
@@ -23,7 +23,7 @@
   --display: "Bebas Neue", "Oswald", "Arial Narrow", Impact, sans-serif;
   --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  --pos-gk: #0A0A0A; --pos-def: #4A4A4A; --pos-mid: #9B9B9B; --pos-fwd: #EC4C24;
+  --pos-gk: #0A0A0A; --pos-def: #4A4A4A; --pos-mid: #9B9B9B; --pos-fwd: #D97757;
   --nav-h: 64px;
   --av-bg: #0A0A0A;
   --pills-h: 56px;
@@ -33,7 +33,7 @@
   :root:not([data-theme="light"]) {
     --bg: #0A0A0A; --card: #131313; --line: #262626; --line-strong: #333;
     --ink: #F4F4F4; --ink-2: #CFCFCF; --muted: #8E8E8E; --soft: #1A1A1A;
-    --y-tint: rgba(236,76,36,.17);
+    --y-tint: rgba(217,119,87,.18);
     --good: #6FC08D; --good-bg: rgba(111,192,141,.13); --bad: #E07A7A; --bad-bg: rgba(224,122,122,.13);
     --amber: #E3B54A; --amber-bg: rgba(227,181,74,.14);
     --hdr: #000; --pitch: #0F0F0F; --av-bg: #2E2E2E;
@@ -45,7 +45,7 @@
 :root[data-theme="dark"] {
   --bg: #0A0A0A; --card: #131313; --line: #262626; --line-strong: #333;
   --ink: #F4F4F4; --ink-2: #CFCFCF; --muted: #8E8E8E; --soft: #1A1A1A;
-  --y-tint: rgba(236,76,36,.17);
+  --y-tint: rgba(217,119,87,.18);
   --good: #6FC08D; --good-bg: rgba(111,192,141,.13); --bad: #E07A7A; --bad-bg: rgba(224,122,122,.13);
   --amber: #E3B54A; --amber-bg: rgba(227,181,74,.14);
   --hdr: #000; --pitch: #0F0F0F; --shadow: none; --av-bg: #2E2E2E;
