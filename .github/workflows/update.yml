@@ -1,0 +1,86 @@
+name: Update site
+
+on:
+  schedule:
+    # Every 15 minutes. The build script itself decides whether to do anything:
+    # it runs fully during match windows (any kickoff from 20 min before to 3 h after)
+    # and otherwise only once an hour, so this covers UK time and midweek games automatically.
+    - cron: "*/15 * * * *"
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      rewrite:
+        description: "Regenerate the write-ups for this gameweek number (optional)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: update-site
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.build.outputs.skip }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Restore API cache
+        uses: actions/cache@v4
+        with:
+          path: data/cache
+          key: fpl-cache-${{ github.run_id }}
+          restore-keys: fpl-cache-
+
+      - name: Install
+        run: pip install --quiet -r requirements.txt
+
+      - name: Build data
+        id: build
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          REWRITE: ${{ inputs.rewrite }}
+        run: |
+          ARGS="--gate"
+          if [ "${{ github.event_name }}" != "schedule" ]; then ARGS="$ARGS --force"; fi
+          if [ -n "$REWRITE" ]; then ARGS="$ARGS --rewrite $REWRITE"; fi
+          python scripts/build.py $ARGS | tee build.log
+          if grep -q "skipping" build.log; then echo "skip=1" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Save write-ups and snapshots
+        if: steps.build.outputs.skip != '1'
+        run: |
+          git add writeups snapshots
+          if ! git diff --cached --quiet; then
+            git -c user.name="salmons-bot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -m "Gameweek write-ups and snapshots"
+            git push
+          fi
+
+      - name: Upload site
+        if: steps.build.outputs.skip != '1'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.skip != '1'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

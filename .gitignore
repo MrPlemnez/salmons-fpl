@@ -1,0 +1,18 @@
+# API cache and generated data (rebuilt by the workflow)
+data/cache/
+site/data.json
+__pycache__/
+*.pyc
+build.log
+.DS_Store
+
+# Reference material from the other league - keep it out of the public repo
+screenshots/
+salmons-fpl.zip
+claude-code-prompt-fpl-draft-hub.md
+.claude/
+
+# Personal screenshots dropped in this folder
+*.png
+!salmons-logo.png
+!site/icons/*.png

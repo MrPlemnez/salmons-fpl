@@ -1,0 +1,23 @@
+{
+ "intro": "Good evening, gentlemen. Gameweek 7 is done. Results included Everton 0-2 Chelsea, Brentford 1-2 Liverpool and Fulham 1-0 Hull City. Ben top-scored with 70; Asher managed 31. Ben leads on 378, 42 clear of Asher. Nobody panic.",
+ "motw": "Ben scored 70, the best of the week. Kostoulas (12), Vuskovic (11) and Tavernier (10) did the heavy lifting. Now 1st on 378.",
+ "stinker": "31 points. That's the lot. De Cuyper top-scored with 6, which tells you how the rest went.",
+ "bench": "23 points left on the bench. Horníček (2), Neto (15), Hall (4) and Kerkez (2) watched from the side. Team selection remains an art, not a science.",
+ "bench_jam": "Sávio didn't play, so Bassey came off Louie's bench and scored 8. A clean sheet and 10 defensive actions. Luck is a skill if you say it confidently.",
+ "red_card": "Schade (Brentford) returned 0 for Josh.",
+ "gloves": "Donnarumma (Man City) scored 1 for Asher. Conceded 2. Made 1 saves, for what it's worth.",
+ "xi": {
+  "1": "9 points for Louie: a clean sheet, 2 saves and 3 bonus.",
+  "504": "11 points for Ben: 1 assist, a clean sheet and 12 defensive actions.",
+  "114": "10 points for Jonny: 1 assist, a clean sheet and 1 bonus.",
+  "31": "9 points for Ben: a clean sheet and 3 bonus.",
+  "156": "15 points for Jamie: 2 goals and 3 bonus.",
+  "53": "11 points for Jamie: 1 goal and 3 bonus.",
+  "261": "11 points for Louie: 1 goal and 3 bonus.",
+  "68": "10 points for Ben: 1 goal, 2 bonus and 10 defensive actions.",
+  "411": "13 points for Louie: 2 goals and 3 bonus.",
+  "138": "12 points for Ben: 1 goal, 1 assist and 3 bonus.",
+  "79": "12 points for Brahmes: 1 goal, 1 assist and 3 bonus."
+ },
+ "source": "template"
+}

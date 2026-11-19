@@ -1,0 +1,23 @@
+{
+ "intro": "Good evening, gentlemen. Gameweek 4 is done. Results included Aston Villa 1-2 Nott'm Forest, Bournemouth 2-2 Brentford and Chelsea 2-2 Hull City. Josh top-scored with 74; Jamie managed 18. Asher leads on 220, 15 clear of Ben. Josh climbs 3 to 3rd. Make of that what you will.",
+ "motw": "Josh scored 74, the best of the week. Schade (15), João Pedro (12) and A.Becker (9) did the heavy lifting. Now 3rd on 194.",
+ "stinker": "18 points. That's the lot. Kelleher top-scored with 3, which tells you how the rest went.",
+ "bench": "15 points left on the bench. Horníček (1), Igor Jesus (7), Maguire (1) and Rúben (6) watched from the side. Team selection remains an art, not a science.",
+ "bench_jam": "Georginio didn't play, so Branthwaite came off Josh's bench and scored 6. A clean sheet. Luck is a skill if you say it confidently.",
+ "red_card": "Awoniyi (Coventry City) returned -2 for Ben. Featuring a red card.",
+ "gloves": "Petrović (Bournemouth) scored 1 for Jack. Conceded 2.",
+ "xi": {
+  "1": "14 points for Louie: a clean sheet, 2 saves and 3 bonus.",
+  "391": "11 points for Asher: 1 assist, a clean sheet and 3 bonus.",
+  "115": "11 points for Asher: 1 assist, a clean sheet and 2 bonus.",
+  "362": "9 points for Ben: a clean sheet and 3 bonus.",
+  "389": "9 points for Brahmes: a clean sheet, 1 bonus and 11 defensive actions.",
+  "4": "9 points for Jack: a clean sheet, 2 bonus and 11 defensive actions.",
+  "124": "17 points for Ben: 1 goal, 2 assists and 3 bonus.",
+  "94": "15 points for Josh: 2 goals and 3 bonus.",
+  "165": "12 points for Josh: 1 goal, 1 assist and 3 bonus.",
+  "346": "10 points for Jonny: 1 goal, 1 assist and 2 bonus.",
+  "411": "9 points for Louie: 1 goal and 3 bonus."
+ },
+ "source": "template"
+}

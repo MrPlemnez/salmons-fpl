@@ -1,0 +1,21 @@
+{
+  "_note": "Past seasons, oldest first. 'name' must match the manager's display name in config.json so all-time records line up. Set near_final: true if a table is a late snapshot rather than the final one (it is then left out of all-time records). A season with only a champion and no table is fine: use \"table\": null.",
+  "seasons": [
+    {
+      "season": "2025/26",
+      "champion": "Ben",
+      "near_final": false,
+      "table": [
+        { "name": "Ben",     "team": "Ben's Barmy Army",     "total": 1772 },
+        { "name": "Josh",    "team": "Victory Delap",        "total": 1690 },
+        { "name": "Asher",   "team": "Back to Back",         "total": 1674 },
+        { "name": "Jonny",   "team": "So Bless FC",          "total": 1651 },
+        { "name": "Jamie",   "team": "DontLookBackElanga",   "total": 1650 },
+        { "name": "Nathan",  "team": "Suited & Cooted",      "total": 1638 },
+        { "name": "Louie",   "team": "Greenham's Team",      "total": 1577 },
+        { "name": "Brahmes", "team": "Well done Sons cryin", "total": 1518 },
+        { "name": "Jack",    "team": "Gyok1",                "total": 1517 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+ "intro": "Good evening, gentlemen. Gameweek 9 is done. Results included Chelsea 2-0 Man Utd, Bournemouth 2-0 Leeds and Brentford 2-0 Nott'm Forest. Jamie top-scored with 51; Louie managed 30. Ben leads on 460, 38 clear of Asher. Brahmes climbs 2 to 4th. As you were.",
+ "motw": "Jamie scored 51, the best of the week. Van Hecke (15), Kelleher (7) and Manzambi (7) did the heavy lifting. Now 8th on 336.",
+ "stinker": "30 points. That's the lot. Van de Ven top-scored with 6, which tells you how the rest went. Down 1 to 6th.",
+ "bench": "20 points left on the bench. Verbruggen (11), Ødegaard (3) and Boscagli (6) watched from the side. Team selection remains an art, not a science.",
+ "bench_jam": "Guéhi didn't play, so Tzolis came off Louie's bench and scored 3. Luck is a skill if you say it confidently.",
+ "red_card": "Mateta (Crystal Palace) returned -2 for Jack. Featuring a red card.",
+ "gloves": "Tzolakis (Hull City) scored 1 for Louie. Conceded 2. Made 1 saves, for what it's worth.",
+ "xi": {
+  "109": "11 points for Jonny: a clean sheet, 7 saves and 3 bonus.",
+  "112": "15 points for Jamie: 1 goal, a clean sheet and 3 bonus.",
+  "31": "10 points for Ben: a clean sheet, 2 bonus and 15 defensive actions.",
+  "230": "9 points for Josh: a clean sheet and 3 bonus.",
+  "115": "9 points for Asher: 1 assist, a clean sheet and 1 bonus.",
+  "40": "9 points for Brahmes: 1 goal and 1 bonus.",
+  "154": "8 points for Ben: 1 goal and 11 defensive actions.",
+  "542": "8 points for Josh: 1 goal, 1 bonus and 11 defensive actions.",
+  "295": "12 points for Asher: 1 goal, 1 assist and 3 bonus.",
+  "26": "9 points for Jamie: 1 goal and 3 bonus.",
+  "79": "9 points for Brahmes: 1 goal and 3 bonus."
+ },
+ "source": "template"
+}

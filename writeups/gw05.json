@@ -1,0 +1,23 @@
+{
+ "intro": "Good evening, gentlemen. Gameweek 5 is done. Results included Brentford 3-0 Chelsea, Spurs 2-3 Aston Villa and Brighton 3-0 Arsenal. Brahmes top-scored with 55; Louie managed 30. Asher leads on 266, 7 clear of Ben. Jack climbs 1 to 5th. Nobody panic.",
+ "motw": "Brahmes scored 55, the best of the week. Cunha (10), Barnes (9) and Virgil (8) did the heavy lifting. Now 7th on 191.",
+ "stinker": "30 points. That's the lot. Haaland top-scored with 6, which tells you how the rest went. Down 1 to 6th.",
+ "bench": "20 points left on the bench. Suzuki (2), Vuskovic (8) and Kostoulas (10) watched from the side. Team selection remains an art, not a science.",
+ "bench_jam": "James didn't play, so Grealish came off Louie's bench and scored 3. Luck is a skill if you say it confidently.",
+ "red_card": "Cash (Aston Villa) returned -1 for Jonny.",
+ "gloves": "Raya (Arsenal) scored 1 for Louie. Conceded 3. Made 2 saves, for what it's worth.",
+ "xi": {
+  "385": "10 points for Josh: a clean sheet, 5 saves and 3 bonus.",
+  "229": "14 points for Jack: 1 assist, a clean sheet, 3 bonus and 12 defensive actions.",
+  "449": "13 points for Jamie: 1 goal, 3 bonus and 10 defensive actions.",
+  "504": "8 points for Ben: a clean sheet and 12 defensive actions.",
+  "397": "17 points for Asher: 2 goals, 1 assist and 2 bonus.",
+  "124": "14 points for Ben: 1 goal, 1 assist and 3 bonus.",
+  "428": "10 points for Brahmes: 1 goal and 3 bonus.",
+  "94": "9 points for Josh: 2 assists.",
+  "453": "9 points for Brahmes: 2 assists and 1 bonus.",
+  "552": "17 points for Ben: 3 goals and 3 bonus.",
+  "138": "10 points for Ben: 1 goal, 1 assist and 2 bonus."
+ },
+ "source": "template"
+}

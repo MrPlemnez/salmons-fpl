@@ -1,0 +1,23 @@
+{
+ "intro": "Good evening, gentlemen. Gameweek 1 is done. Results included Arsenal 3-0 Coventry City, Hull City 2-0 Man Utd and Everton 2-0 Crystal Palace. Asher top-scored with 80; Brahmes managed 28. Asher leads on 80, 21 clear of Ben. Make of that what you will.",
+ "motw": "Asher scored 80, the best of the week. De Cuyper (17), Gakpo (12) and White (11) did the heavy lifting. Now 1st on 80.",
+ "stinker": "28 points. That's the lot. Rogers top-scored with 8, which tells you how the rest went.",
+ "bench": "10 points left on the bench. Trafford (9) and Hill (1) watched from the side. Team selection remains an art, not a science.",
+ "bench_jam": "Amad didn't play, so Dewsbury-Hall came off Jonny's bench and scored 11. 1 goal and 3 bonus. Luck is a skill if you say it confidently.",
+ "red_card": "Cash (Aston Villa) returned -1 for Jonny.",
+ "gloves": "Lammens (Man Utd) scored 1 for Brahmes. Conceded 2. Made 2 saves, for what it's worth.",
+ "xi": {
+  "385": "9 points for Josh: a clean sheet, 3 saves and 2 bonus.",
+  "115": "17 points for Asher: 1 goal, 1 assist, a clean sheet and 2 bonus.",
+  "10": "11 points for Asher: 1 assist, a clean sheet and 2 bonus.",
+  "388": "10 points for Louie: 1 goal and 2 bonus.",
+  "154": "13 points for Ben: 1 goal, 1 assist and 3 bonus.",
+  "335": "13 points for Jack: 1 goal, 3 bonus and 16 defensive actions.",
+  "367": "12 points for Asher: 1 goal, 3 bonus and 12 defensive actions.",
+  "15": "11 points for Jonny: 1 goal and 3 bonus.",
+  "236": "11 points for Jonny: 1 goal and 3 bonus.",
+  "165": "11 points for Josh: 1 goal, 1 assist and 2 bonus.",
+  "316": "9 points for Louie: 1 goal and 3 bonus."
+ },
+ "source": "template"
+}

@@ -1,0 +1,19 @@
+{
+  "app_name": "Salmons FPL",
+  "app_subtitle": "(Retard League)",
+  "home_screen_name": "Salmons FPL",
+  "league_id": 7963,
+  "season": "2026/27",
+  "me_entry_id": 37822,
+  "last_season_champion_entry_id": 37816,
+  "managers": [
+    { "entry_id": 37816, "league_entry": 37869, "team": "Ben's Barmy Army",      "name": "Ben",     "nickname": "Ben",     "initials": "BE", "colour": "#4C6A92" },
+    { "entry_id": 37817, "league_entry": 37870, "team": "Champagne Khusanova",   "name": "Jamie",   "nickname": "Jamie",   "initials": "JA", "colour": "#8A5A44", "admin": true },
+    { "entry_id": 37818, "league_entry": 37871, "team": "Victory Delap",         "name": "Josh",    "nickname": "Josh",    "initials": "JO", "colour": "#5E8C6A" },
+    { "entry_id": 37820, "league_entry": 37873, "team": "Back to Back",          "name": "Asher",   "nickname": "Asher",   "initials": "AS", "colour": "#9C4F5A" },
+    { "entry_id": 37821, "league_entry": 37874, "team": "Well done Sons cryin",  "name": "Brahmes", "nickname": "Brahmes", "initials": "BR", "colour": "#6E5E8C" },
+    { "entry_id": 37822, "league_entry": 37875, "team": "So Bless FC",           "name": "Jonny",   "nickname": "Jonny",   "initials": "JH", "colour": "#0A0A0A" },
+    { "entry_id": 37823, "league_entry": 37876, "team": "Greenham's Team",       "name": "Louie",   "nickname": "Louie",   "initials": "LO", "colour": "#4F8A8B" },
+    { "entry_id": 37824, "league_entry": 37877, "team": "Quantum of Tzolis",     "name": "Jack",    "nickname": "Jack",    "initials": "JC", "colour": "#8C8C8C" }
+  ]
+}

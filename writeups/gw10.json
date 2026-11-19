@@ -1,0 +1,23 @@
+{
+ "intro": "Good evening, gentlemen. Gameweek 10 is done. Results included Everton 3-1 Coventry City, Leeds 1-0 Spurs and Arsenal 1-0 Hull City. Jonny top-scored with 67; Asher managed 21. Ben leads on 526, 60 clear of Jonny. Jonny climbs 1 to 2nd. Carry on.",
+ "motw": "Jonny scored 67, the best of the week. Barry (16), Ødegaard (11) and Cherki (9) did the heavy lifting. Now 2nd on 466.",
+ "stinker": "21 points. That's the lot. De Cuyper top-scored with 6, which tells you how the rest went. Down 1 to 3rd.",
+ "bench": "30 points left on the bench. Trafford (10), E.Le Fée (11) and Justin (9) watched from the side. Team selection remains an art, not a science.",
+ "bench_jam": "White didn't play, so Khalaili came off Asher's bench and scored 1. Luck is a skill if you say it confidently.",
+ "red_card": "Thiago (Brentford) returned -2 for Brahmes. Featuring a red card.",
+ "gloves": "Suzuki (Aston Villa) scored 0 for Ben. Conceded 4. Made 5 saves, for what it's worth.",
+ "xi": {
+  "385": "10 points for Josh: a clean sheet, 4 saves and 3 bonus.",
+  "504": "12 points for Ben: 1 assist, a clean sheet and 3 bonus.",
+  "334": "10 points for Jack: a clean sheet, 2 bonus and 14 defensive actions.",
+  "332": "9 points for Josh: a clean sheet, 1 bonus and 10 defensive actions.",
+  "366": "13 points for Jamie: 1 goal, 1 assist, 3 bonus and 10 defensive actions.",
+  "542": "11 points for Josh: 1 goal and 3 bonus.",
+  "15": "11 points for Jonny: 1 goal and 3 bonus.",
+  "124": "10 points for Ben: 1 goal and 2 bonus.",
+  "249": "16 points for Jonny: 2 goals, 1 assist and 3 bonus.",
+  "167": "13 points for Louie: 2 goals and 3 bonus.",
+  "166": "11 points for Brahmes: 1 goal, 1 assist and 2 bonus."
+ },
+ "source": "template"
+}

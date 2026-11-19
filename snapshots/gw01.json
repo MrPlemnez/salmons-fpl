@@ -1,0 +1,62 @@
+{
+ "gw": 1,
+ "saved": "2026-11-19T12:35:27.347408+00:00",
+ "table": [
+  {
+   "id": 37820,
+   "name": "Asher",
+   "rank": 1,
+   "gw": 80,
+   "total": 80
+  },
+  {
+   "id": 37816,
+   "name": "Ben",
+   "rank": 2,
+   "gw": 59,
+   "total": 59
+  },
+  {
+   "id": 37822,
+   "name": "Jonny",
+   "rank": 3,
+   "gw": 55,
+   "total": 55
+  },
+  {
+   "id": 37823,
+   "name": "Louie",
+   "rank": 4,
+   "gw": 42,
+   "total": 42
+  },
+  {
+   "id": 37824,
+   "name": "Jack",
+   "rank": 4,
+   "gw": 42,
+   "total": 42
+  },
+  {
+   "id": 37817,
+   "name": "Jamie",
+   "rank": 6,
+   "gw": 37,
+   "total": 37
+  },
+  {
+   "id": 37818,
+   "name": "Josh",
+   "rank": 6,
+   "gw": 37,
+   "total": 37
+  },
+  {
+   "id": 37821,
+   "name": "Brahmes",
+   "rank": 8,
+   "gw": 28,
+   "total": 28
+  }
+ ]
+}

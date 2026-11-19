@@ -1,0 +1,23 @@
+{
+ "intro": "Good evening, gentlemen. Gameweek 6 is done. Results included Arsenal 2-1 Leeds, Aston Villa 2-2 Brentford and Chelsea 5-1 Bournemouth. Brahmes top-scored with 55; Jack managed 29. Ben leads on 308, 3 clear of Asher. Ben climbs 1 to 1st. Carry on.",
+ "motw": "Brahmes scored 55, the best of the week. Cunha (10), Rogers (9) and N.Jackson (9) did the heavy lifting. Now 6th on 246.",
+ "stinker": "29 points. That's the lot. Mbeumo top-scored with 8, which tells you how the rest went. Down 2 to 7th.",
+ "bench": "11 points left on the bench. Donnarumma (9), N.Williams (1) and Ndiaye (1) watched from the side. Team selection remains an art, not a science.",
+ "bench_jam": "Castagne didn't play, so Rúben came off Jamie's bench and scored 6. A clean sheet. Luck is a skill if you say it confidently.",
+ "red_card": "Horníček (Newcastle) returned 0 for Jamie.",
+ "gloves": "Horníček (Newcastle) scored 0 for Jamie. Conceded 4. Made 2 saves, for what it's worth.",
+ "xi": {
+  "384": "9 points for Asher: a clean sheet, 6 saves and 1 bonus.",
+  "115": "15 points for Asher: 1 goal, a clean sheet and 3 bonus.",
+  "8": "9 points for Ben: 1 goal and 1 bonus.",
+  "504": "8 points for Ben: a clean sheet and 15 defensive actions.",
+  "236": "13 points for Jonny: 1 goal, 1 assist, 3 bonus and 10 defensive actions.",
+  "428": "10 points for Brahmes: 1 assist, 3 bonus and 14 defensive actions.",
+  "399": "10 points for Jonny: 1 goal and 2 bonus.",
+  "40": "9 points for Brahmes: 1 goal and 13 defensive actions.",
+  "452": "9 points for Louie: 1 goal and 3 bonus.",
+  "165": "12 points for Josh: 2 goals and 2 bonus.",
+  "166": "9 points for Brahmes: 1 goal and 3 bonus."
+ },
+ "source": "template"
+}

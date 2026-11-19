@@ -1,0 +1,7 @@
+{
+  "_help": "Edit any write-up line here. Keys are gameweek numbers. Fields: intro, motw, stinker, bench, bench_jam, red_card, gloves, and xi (player id -> text). Example below; delete it or copy its shape.",
+  "_example": {
+    "intro": "Good evening, gentlemen...",
+    "xi": { "123": "Replacement line for player 123." }
+  }
+}

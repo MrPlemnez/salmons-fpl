@@ -1,0 +1,23 @@
+{
+ "intro": "Good evening, gentlemen. Gameweek 3 is done. Results included Ipswich Town 0-2 Liverpool, Newcastle 2-2 Bournemouth and Brentford 1-1 Sunderland. Asher top-scored with 48; Josh managed 22. Asher leads on 169, 22 clear of Jonny. Louie climbs 2 to 4th. Make of that what you will.",
+ "motw": "Asher scored 48, the best of the week. Gakpo (11), Gvardiol (8) and Donnarumma (7) did the heavy lifting. Now 1st on 169.",
+ "stinker": "22 points. That's the lot. A.Becker top-scored with 8, which tells you how the rest went. Down 2 to 6th.",
+ "bench": "14 points left on the bench. Sels (6), Aina (1), Awoniyi (2) and Šeško (5) watched from the side. Team selection remains an art, not a science.",
+ "bench_jam": "Bruno G. didn't play, so Shaw came off Louie's bench and scored 4. 1 assist. Luck is a skill if you say it confidently.",
+ "red_card": "Thiaw (Newcastle) returned -1 for Josh. Featuring an own goal.",
+ "gloves": "Pickford (Everton) scored 1 for Jack. Conceded 2. Made 1 saves, for what it's worth.",
+ "xi": {
+  "350": "8 points for Josh: a clean sheet, 5 saves and 1 bonus.",
+  "391": "8 points for Asher: a clean sheet and 2 bonus.",
+  "388": "8 points for Louie: a clean sheet and 2 bonus.",
+  "469": "7 points for Asher: a clean sheet and 1 bonus.",
+  "367": "11 points for Asher: 2 assists, 2 bonus and 10 defensive actions.",
+  "68": "10 points for Ben: 1 goal and 3 bonus.",
+  "15": "10 points for Jonny: 1 goal and 3 bonus.",
+  "69": "10 points for Jonny: 2 assists, 2 bonus and 11 defensive actions.",
+  "268": "10 points for Louie: 1 goal and 3 bonus.",
+  "379": "13 points for Jonny: 2 goals and 3 bonus.",
+  "411": "9 points for Louie: 1 goal and 3 bonus."
+ },
+ "source": "template"
+}

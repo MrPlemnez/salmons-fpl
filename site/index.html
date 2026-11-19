@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Salmons FPL</title>
+<meta name="description" content="Stats, awards and banter for the Salmons FPL Draft league.">
+<meta name="theme-color" content="#0A0A0A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Salmons FPL">
+<meta property="og:title" content="Salmons FPL">
+<meta property="og:image" content="icons/icon-512.png">
+<link rel="icon" type="image/png" href="icons/favicon-64.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="hdr">
+  <div class="wrap">
+    <img class="crest" src="icons/crest-256.png" alt="Stoke Salmon FC crest" width="58" height="58">
+    <div class="hdr-text">
+      <div class="kicker" id="kicker">FPL Draft</div>
+      <h1 id="app-title">Salmons FPL</h1>
+      <div class="sub" id="app-sub"></div>
+    </div>
+    <div class="hdr-side">
+      <span id="live-slot"></span>
+      <button class="me-toggle" id="me-toggle" aria-pressed="true" title="Highlight my team">ME</button>
+      <span class="updated" id="updated"></span>
+    </div>
+  </div>
+  <div class="yline"></div>
+</header>
+<div class="pills-bar"><div class="pills" id="pills" role="tablist"></div></div>
+<main class="wrap" id="view" aria-live="polite">
+  <div class="stack" style="padding-top:8px">
+    <div class="sk" style="height:132px;border-radius:16px"></div>
+    <div class="sk" style="height:220px"></div>
+    <div class="sk" style="height:84px"></div>
+  </div>
+</main>
+<div class="ptr" id="ptr">Release to refresh</div>
+<div class="tip" id="tip"></div>
+<nav class="nav" aria-label="Sections"><div class="in" id="nav"></div></nav>
+<script src="app.js"></script>
+</body>
+</html>

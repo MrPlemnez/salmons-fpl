@@ -1,0 +1,23 @@
+{
+ "intro": "Good evening, gentlemen. Gameweek 2 is done. Results included Crystal Palace 1-4 Man City, Liverpool 2-2 Nott'm Forest and Bournemouth 1-1 Everton. Josh top-scored with 61; Brahmes managed 30. Asher leads on 121, 16 clear of Ben. Josh climbs 2 to 4th. Carry on.",
+ "motw": "Josh scored 61, the best of the week. Gibbs-White (13), Schade (10) and Foden (9) did the heavy lifting. Now 4th on 98.",
+ "stinker": "30 points. That's the lot. Cunha top-scored with 9, which tells you how the rest went.",
+ "bench": "20 points left on the bench. Horníček (7), Hall (11) and Rúben (2) watched from the side. Team selection remains an art, not a science.",
+ "bench_jam": "Matheus N. didn't play, so Kudus came off Brahmes's bench and scored 1. Luck is a skill if you say it confidently.",
+ "red_card": "A.Becker (Liverpool) returned 0 for Josh.",
+ "gloves": "Verbruggen (Brighton) scored 0 for Jonny. Conceded 4. Made 1 saves, for what it's worth.",
+ "xi": {
+  "566": "7 points for Jamie: a clean sheet and 4 saves.",
+  "229": "12 points for Louie: 1 goal, 2 bonus and 10 defensive actions.",
+  "8": "11 points for Ben: 1 assist, a clean sheet and 2 bonus.",
+  "449": "11 points for Jamie: a clean sheet, 3 bonus and 13 defensive actions.",
+  "426": "23 points for Jamie: 3 goals, 1 assist and 3 bonus.",
+  "399": "14 points for Jonny: 2 goals and 3 bonus.",
+  "124": "13 points for Ben: 1 goal, 1 assist and 3 bonus.",
+  "480": "13 points for Josh: 1 goal, 1 assist and 3 bonus.",
+  "12": "11 points for Asher: 1 goal, 3 bonus and 11 defensive actions.",
+  "411": "13 points for Louie: 2 goals and 3 bonus.",
+  "165": "9 points for Josh: 1 goal, 1 assist and 2 bonus."
+ },
+ "source": "template"
+}

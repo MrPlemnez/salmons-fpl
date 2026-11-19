@@ -1,0 +1,23 @@
+{
+ "intro": "Good evening, gentlemen. Gameweek 8 is done. Results included Ipswich Town 1-1 Nott'm Forest, Aston Villa 2-1 Man City and Arsenal 2-0 Everton. Brahmes top-scored with 61; Jamie managed 37. Ben leads on 418, 37 clear of Asher. Make of that what you will.",
+ "motw": "Brahmes scored 61, the best of the week. N.Jackson (13), Araujo (10) and Araujo (10) did the heavy lifting. Now 6th on 346.",
+ "stinker": "37 points. That's the lot. Hill top-scored with 11, which tells you how the rest went.",
+ "bench": "14 points left on the bench. Verbruggen (2), Dewsbury-Hall (2) and Truffert (10) watched from the side. Team selection remains an art, not a science.",
+ "bench_jam": "Matheus N. didn't play, so Araujo came off Brahmes's bench and scored 10. A clean sheet, 2 bonus and 11 defensive actions. Luck is a skill if you say it confidently.",
+ "red_card": "Palmer (Chelsea) returned -1 for Ben. Featuring a red card.",
+ "gloves": "Penders (Chelsea) scored 0 for Jamie. Conceded 2. Made 3 saves, for what it's worth.",
+ "xi": {
+  "385": "10 points for Josh: a clean sheet, 4 saves and 3 bonus.",
+  "4": "17 points for Jack: 1 goal, a clean sheet, 3 bonus and 14 defensive actions.",
+  "31": "14 points for Ben: 1 goal, a clean sheet and 2 bonus.",
+  "60": "11 points for Jamie: a clean sheet, 3 bonus and 22 defensive actions.",
+  "10": "10 points for Asher: 1 assist, a clean sheet and 1 bonus.",
+  "580": "10 points for Brahmes: a clean sheet, 2 bonus and 11 defensive actions.",
+  "68": "10 points for Ben: 1 goal and 2 bonus.",
+  "67": "10 points for Jack: 1 goal and 17 defensive actions.",
+  "166": "13 points for Brahmes: 2 goals and 3 bonus.",
+  "465": "9 points for Josh: 1 goal and 3 bonus.",
+  "379": "9 points for Jonny: 1 goal and 3 bonus."
+ },
+ "source": "template"
+}
