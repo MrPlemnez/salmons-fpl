@@ -1,23 +1,24 @@
 {
- "intro": "Gentlemen, Gameweek 7. Brighton beat Crystal Palace 5-0 and Arsenal won 1-0 at Forest. Man City edged Ipswich 3-2 and Spurs beat Coventry 3-1. Ben top-scored with 70 points. Asher scored 31, the lowest of the eight. Nobody moved in the table, which is stability of a sort. Ben leads on 378, Asher is second on 336 and Jonny third on 325. Jamie is last on 248, which is a long way from the others.",
- "motw": "Ben, 70 points. Kostoulas, Vuskovic, Tavernier and Konsa all made the team of the week. That is four of the eleven from one squad. Suzuki added 8 in goal. He now leads Asher by 42 points. The rest of you are playing for second.",
- "stinker": "Asher, 31 points. De Cuyper, White and Kudus managed 6 each. Martinez sat on the bench with 8, which was more than any of his starters scored. Asher stays second, but that was a poor week.",
- "bench": "Jamie left 23 points on the bench. Neto scored 15 with two goals and Jamie did not start him. Neto is in the team of the week, and his owner was not there to see it. Hall added 4 on the bench too. Jamie is last, so the timing was poor.",
- "bench_jam": "Louie's Bassey came on for Sávio and scored 8, with a clean sheet for Fulham. The auto-sub did the job without being asked. Sávio's slot was filled by a defender, and Louie collected the points. Neat.",
- "red_card": "Josh's Schade scored 0 in 45 minutes for Brentford. He picked up a yellow card and Brentford conceded twice. Brentford lost 2-1 to Liverpool, so Josh's Becker still managed 2 in the other goal. Schade did not come back for the second half.",
- "gloves": "Asher's Donnarumma scored 1 point. Man City conceded twice against Ipswich, and he made one save. Haaland scored two for Louie in that same game. Asher's keeper helped Louie's forward, and the group chat will notice.",
+ "intro": "Gameweek 7, gentlemen, and Brighton put five past Crystal Palace without breaking a sweat. Man City beat Ipswich 3-2 and Arsenal nicked it 1-0 at Forest. Leeds and Man Utd shared the points at 1-1. Ben scored 70 and Asher managed 31, a gap you could park a bus in. Ben now leads on 378, 42 clear of Asher in second. Jonny is third on 325 and nobody moved an inch in the table. Absolute scenes, if you're Ben. Everyone else is just watching.",
+ "motw": "Ben, 70 points. Brighton's back line and Kostoulas did the heavy lifting, with Vuskovic, Konsa and Tavernier all in double figures or close. The title race is not ON. It's over, and he's on the podium with a trophy. Set and forget, gentlemen.",
+ "stinker": "Asher, 31 points. Martinez scored 8 on the bench while the XI limped along with a lot of 6s and 3s. Gyökeres got 24 minutes and 1 point, which feels about right for the week. Still second, but the cushion is getting thin.",
+ "bench": "Jamie left 23 points on the bench. Neto got 15 for two goals and a clean sheet, and he watched it all from the dugout. The bench is where points go to die, and this one got a proper funeral. Somebody tell him the bench isn't a trophy cabinet.",
+ "bench_jam": "Louie, take a bow. Sávio went down and Bassey came on for an 8-point auto-sub, with a clean sheet and 10 defensive contributions. That's a hospital ball nobody could see coming. Never in doubt, apparently.",
+ "red_card": "Josh owns the red card this week, and it goes to Schade. 45 minutes for Brentford, a yellow card, two goals conceded and zero points. Brentford lost 2-1 to Liverpool and Schade took the hook at the break. Squeaky bum time for the Victory Delap faithful.",
+ "gloves": "Asher again, with Donnarumma, who got 1 point. Two conceded against Ipswich and one save in 90 minutes. Haaland scored twice for Louie at the other end. Good for Louie, awkward at the next dinner.",
  "xi": {
-  "1": "Raya, 9 points for Louie. Clean sheet, two saves and 3 bonus at Forest. A tidy shift.",
-  "504": "Vuskovic, 11 points for Ben. An assist, a clean sheet and 12 defensive contributions. Efficient.",
-  "114": "Boscagli, 10 points for Jonny. Brighton's defence was generous with assists. Jonny took one of them.",
-  "31": "Konsa, 9 points for Ben. Clean sheet and full bonus. Ben had another defender at Arsenal in Calafiori, with 6.",
-  "156": "Neto, 15 points for Jamie, two goals for Chelsea. He was on the bench. Jamie will not be discussing it.",
-  "53": "Manzambi, 11 points for Jamie. One goal and 3 bonus for Aston Villa in 71 minutes. Jamie had a good week on paper, just not on the team sheet.",
-  "261": "Iwobi, 11 points for Louie. A goal and a clean sheet for Fulham. Bassey did his bit as well.",
-  "68": "Tavernier, 10 points for Ben. A goal and 10 defensive contributions in 78 minutes. Ben keeps collecting.",
-  "411": "Haaland, 13 points for Louie. Two goals and full bonus, even with Man City conceding twice. Asher's Donnarumma was on the other end of it.",
-  "138": "Kostoulas, 12 points for Ben. A goal and an assist in 70 minutes against Palace. Another one for Ben.",
-  "79": "Evanilson, 12 points for Brahmes. A goal and an assist for Bournemouth. He was Brahmes' best player by 8 points."
+  "1": "Raya, 9 points, clean sheet and 3 bonus. In his pocket for Louie.",
+  "504": "Vuskovic, 11 points with an assist, a clean sheet and 12 defensive contributions. Brighton's wall did the business for Ben.",
+  "114": "Boscagli, 10 points for Jonny. An assist and a clean sheet in 80 minutes, and the Brighton rinsing continues.",
+  "31": "Konsa, 9 points for Ben. A clean sheet and full bonus at Forest, and another Ben player in the XI.",
+  "156": "Neto, 15 points for two goals and a clean sheet, and the best score of the week. He sat on Jamie's bench. Brutal.",
+  "53": "Manzambi, 11 points for Jamie. A goal and a clean sheet in 71 minutes in Villa's 1-0 win. At least one of Jamie's picks showed up.",
+  "261": "Iwobi, 11 points for Louie. A goal and a clean sheet as Fulham beat Hull 1-0.",
+  "68": "Tavernier, 10 points for Ben. A goal, a clean sheet and 10 defensive contributions in 78 minutes.",
+  "411": "Haaland, 13 points for Louie with two goals and full bonus. Man City still conceded twice, because of course they did.",
+  "138": "Kostoulas, 12 points for Ben. A goal and an assist in 70 minutes as Brighton hit five.",
+  "79": "Evanilson, 12 points for Brahmes. A goal and an assist as Bournemouth beat Sunderland 2-0. The only real highlight on his team sheet."
  },
- "source": "claude"
+ "source": "claude",
+ "style": 2
 }

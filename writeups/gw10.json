@@ -1,23 +1,24 @@
 {
- "intro": "Gentlemen, Gameweek 10. Man Utd and Aston Villa drew 4-4, which gave several of you a lot to think about. Jonny scored 67 and Ben scored 66, a one-point gap at the top. Jonny moved up to second and Asher dropped to third. Asher managed 21, the lowest score of the week by some distance. Ben still leads on 526, 60 clear of Jonny. Jamie sits last on 385, despite 49 points that beat four of you.",
- "motw": "Jonny, 67 points and Manager of the Week by a single point from Ben. Barry scored 16 for Everton, and Ødegaard added 11. Isak and Cherki both contributed too. Jonny also left McGinn's 10 on the bench, so there was more in the tank. He climbed to second.",
- "stinker": "Asher, 21 points. De Cuyper's 6 was the best score in the side. Saka, Semenyo and Martinez all sat on the bench with zeros, and one auto-sub was needed. He fell from second to third. Everyone else will be sympathetic, in public.",
- "bench": "Josh, 30 points left on the bench. Trafford (10), Le Fée (11) and Justin (9) all sat out and all made the team of the week. The starting side scored 34 in total. Brave to keep them all on the bench. A different lineup would have been rather better.",
+ "intro": "Gentlemen, Gameweek 10 gave us a 4-4 at Old Trafford, Forest putting three past Man City and Leeds, Sunderland and Arsenal all winning 1-0. Jonny top-scored with 67, one clear of Ben on 66. Asher scraped together 21 and had a mare. Jonny nicks second off Asher, who drops to third. Ben still leads on 526, 60 clear of Jonny, so the title race is not quite ON. Brahmes, Josh and Jack are all bunched in the middle, and Jamie sits eighth on 385.",
+ "motw": "Jonny, 67 points and the top score of the week. Barry went for 16 with two goals and an assist, Ødegaard added 11 and Cherki 9. McGinn also scored 10 on his bench, which he'll want to forget, but 67 is 67. Still 60 behind Ben, so it's a start.",
+ "stinker": "Asher, 21 points. The best score on the sheet was a 6 from De Cuyper, and Saka, Semenyo and Martinez gave nothing on the bench. Third place feels generous. Squeaky bum time is coming, gentlemen.",
+ "bench": "Josh left 30 points on the bench. Trafford (10), E.Le Fée (11) and Justin (9) all sat there while Josh banked 34. The bench is where points go to die, and today it held a wake. Somebody tell him it isn't a trophy cabinet.",
  "bench_jam": "",
- "red_card": "Brahmes, and Thiago of Brentford. He played 22 minutes, conceded two goals and got sent off for -2 points. Brahmes still scored 46 overall and stayed fourth. A short and expensive afternoon.",
- "gloves": "Ben, and Suzuki of Aston Villa. He made five saves and conceded four in the 4-4 draw, and finished on 0 points. A busy afternoon with nothing to show for it. Ben still scored 66.",
+ "red_card": "Brahmes owned Thiago, who was sent off for Brentford after 22 minutes and finished on -2. Two goals conceded in that time too. Brahmes still got 46 on the board, so he'll live. It's an early bath for the player and a long night for the manager.",
+ "gloves": "Ben started Suzuki, who made 5 saves, picked up a yellow and conceded four for a big fat zero. Four goals against at Old Trafford is the sort of Sunday League defending you can't plan for. Ben still scored 66, so it hardly dented him.",
  "xi": {
-  "385": "Trafford, 10 points with a clean sheet and 3 bonus for Leeds. Josh owns him and left him on the bench.",
-  "504": "Vuskovic, 12 points for Brighton. One assist, a clean sheet and 3 bonus. Ben's best player of the week.",
-  "334": "Muharemović, 10 points for Jack. A clean sheet, 2 bonus and 14 defensive contributions. Solid work.",
-  "332": "Justin, 9 points for Leeds. Josh owns him and benched him as well. A theme is emerging.",
-  "366": "Wirtz, 13 points for Jamie. A goal, an assist and 3 bonus against Palace. Jamie's best player.",
-  "542": "Le Fée, 11 points with a goal and a clean sheet for Sunderland. On Josh's bench, naturally.",
-  "15": "Ødegaard, 11 points for Jonny. A goal, a clean sheet and 3 bonus in Arsenal's 1-0 win.",
-  "124": "Groß, 10 points for Ben. A goal and a clean sheet in Brighton's 2-0 win.",
-  "249": "Barry, 16 points for Jonny, the top score in the side. Two goals and an assist against Coventry. Jonny's week starts here.",
-  "167": "Delap, 13 points for Louie. Two goals in Forest's 3-1 win over Man City. Louie finished with 35 in total, which is a polite way of putting it.",
-  "166": "N.Jackson, 11 points for Brahmes. A goal and an assist in the 4-4 draw. Brahmes needed it."
+  "385": "Trafford kept a clean sheet, made 4 saves and picked up 3 bonus for 10. He was on Josh's bench. Absolute scenes.",
+  "504": "Vuskovic got a clean sheet, an assist and 3 bonus for 12. A defender top-scoring in a team of the week is a fine bit of business for Ben.",
+  "334": "Muharemović got a clean sheet and 14 defensive contributions for 10. Jack gets a nice return from a man who does the dirty work.",
+  "332": "Justin kept a clean sheet and got 9 points. Josh had him on the bench, which is quite the habit this week.",
+  "366": "Wirtz scored, assisted and took 3 bonus for 13. Jamie's best player of the week and he'll want more of that.",
+  "542": "E.Le Fée scored for Sunderland and got 11 points. Josh had him on the bench too. Put the phone down, Josh.",
+  "15": "Ødegaard scored in an Arsenal clean sheet for 11. Jonny's midfield engine room kept him on top of the week.",
+  "124": "Groß scored in a Brighton clean sheet for 10 points. Another quiet, tidy return for Ben.",
+  "249": "Barry had two goals, an assist and 3 bonus for 16, the top score of the week. Jonny's captain-sized haul. You can't buy that.",
+  "167": "Delap bagged two against Man City for 13. Louie gets a worldie of a week from a man who barely played 86 minutes.",
+  "166": "N.Jackson scored, assisted and took 11 points in the 4-4. Brahmes got something out of a game that gave goals to everyone."
  },
- "source": "claude"
+ "source": "claude",
+ "style": 2
 }

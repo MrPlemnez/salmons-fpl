@@ -1,23 +1,24 @@
 {
- "intro": "Gentlemen, Gameweek 5. Brighton beat Arsenal 3-0, Man City beat Sunderland 5-3, and Leeds and Crystal Palace played out a 0-0. Brahmes scored 55 and topped the week. Ben was next on 54 and Jamie managed 44. Louie scored 30 and finished bottom. Asher stayed top on 266, with Ben seven behind on 259. Jack moved up to fifth on 209 and Louie dropped to sixth on 207. Brahmes is still seventh, 191, and Jamie fell to eighth on 180.",
- "motw": "Brahmes scored 55 and takes Manager of the Week. Cunha gave him 10 and Barnes 9, and Virgil added 8. It was the top score in the league, and it still left him seventh. A good week from a bad position. Everyone else can only watch him leave.",
- "stinker": "Louie scored 30, the lowest in the league. Haaland got him 6 and nobody else on his team sheet reached 5. He also dropped a place to sixth, and Jack went past him. Quiet week, gentlemen. Louie will want it forgotten.",
- "bench": "Ben left 20 points on the bench. Kostoulas scored 10 there and Vuskovic added 8, and both are in the team of the week. Ben still scored 54 and finished second in the week, which makes it a very expensive bench. The selection is the only thing standing between him and Asher.",
+ "intro": "Gameweek 5, gentlemen, and Brighton ran riot with a 3-0 win over Arsenal while Brentford saw off Chelsea by the same score. Man City 5-3 Sunderland was absolute scenes, and Spurs 2-3 Aston Villa was a proper Sunday League defensive effort. Brahmes topped the week with 55, just ahead of Ben on 54, while Louie propped up the table with a 30. Asher is still in front on 266, Ben is lurking on 259 and the title race is ON. Jack nipped up to fifth and Louie slid down to sixth. Josh and Jonny held their places in third and fourth, and Brahmes, with that 55, stays seventh.",
+ "motw": "Brahmes, 55 points, and the only man in the league to go over 50 without Ben's help. Cunha scored, Barnes got two assists, and Virgil kept a clean sheet. Nothing flashy, just a lot of players doing their job. Never in doubt, apart from the fact he's still seventh.",
+ "stinker": "Louie, 30 points, bottom of the pile and down a place. Haaland scored for six, which is a quiet day for him, and four defenders came back with four each at best. Seven on the bench for Mitchell, who sat there on a clean sheet. The bench is where points go to die.",
+ "bench": "Ben left 20 points on the bench, which is a lot of lads watching from the sidelines. Kostoulas scored and assisted for 10, and Vuskovic kept a clean sheet for 8 while sat in the dugout. He still scored 54, so he can afford it. Somebody tell him the bench isn't a trophy cabinet.",
  "bench_jam": "",
- "red_card": "Jonny's Cash of Aston Villa scored -1. He played 45 minutes, conceded 2 and picked up a yellow card. Villa won 3-2 at Spurs, so his teammates did all right out of it. Cash only collected the booking. Jonny is the only one who got anything out of it, and it was the red card.",
- "gloves": "Louie's Raya kept the gloves for the wrong reasons. Arsenal lost 3-0 at Brighton, though Raya is credited with 3 conceded. He made 2 saves and scored 1 point. Ben's Vuskovic and Groß were on the other side of it. Louie owns the keeper, and Ben owns the people who beat him.",
+ "red_card": "Jonny owned Cash, who played 45 minutes for Villa, picked up a yellow, conceded two and came away with minus one. That's a hospital ball of a fixture for a defender. The Villa lads are buzzing, Jonny less so.",
+ "gloves": "Louie again, this time with Raya, who conceded three at Brighton and scored one point. Two saves wasn't going to save anyone. Arsenal got rinsed and so did the owner.",
  "xi": {
-  "385": "Trafford kept a clean sheet for Leeds and made 5 saves for 10 points. Josh left him on the bench. Of the 10 he scored, none counted.",
-  "229": "Tarkowski got 14 points with a clean sheet, an assist, 3 bonus and 12 defensive contributions. Everton beat Ipswich 1-0. Jack collects it in full.",
-  "449": "Hall scored for Newcastle and picked up 3 bonus for 13 points. Jamie's best player of the week. Newcastle beat Hull 2-1.",
-  "504": "Vuskovic scored 8 on a Brighton clean sheet. Ben left him on the bench. A costly decision.",
-  "397": "Semenyo scored twice and added an assist for 17 points, even with 3 conceded. Asher was the owner and the beneficiary. Man City beat Sunderland 5-3.",
-  "124": "Groß had a goal, an assist and a clean sheet for 14 points. Brighton beat Arsenal 3-0. Ben was happy to collect.",
-  "428": "Cunha scored for Man Utd and took 3 bonus for 10 points. Fulham drew 1-1 with Man Utd. Brahmes banked it.",
-  "94": "Schade had 2 assists and a Brentford clean sheet for 9 points. Brentford beat Chelsea 3-0. Josh will take it.",
-  "453": "Barnes provided 2 assists for Newcastle and scored 9 points. Brahmes owns both Barnes and Cunha. The numbers show it.",
-  "552": "Brobbey scored a hat-trick for Sunderland and got 17 points, even though they conceded 5. Sunderland lost 5-3 to Man City. Ben owns him and it paid.",
-  "138": "Kostoulas scored, assisted and picked up 2 bonus for 10 points in 75 minutes. He was on Ben's bench. Awkward, gentlemen."
+  "385": "Trafford kept a clean sheet for Leeds with five saves and three bonus for 10. Josh had him on the bench, which is a bold way to run a team.",
+  "229": "Tarkowski got an assist, a clean sheet and three bonus for 14. Jack's defender, Jack's gain. Set and forget.",
+  "449": "Hall scored and picked up three bonus for 13. A defender on the scoresheet is a differential Jamie will happily take.",
+  "504": "Vuskovic kept a clean sheet for Brighton and made 12 defensive contributions for 8. Ben's reward was a seat on the bench.",
+  "397": "Semenyo scored twice and assisted once for 17, even with three conceded. Asher's captain material, and he played himself into form.",
+  "124": "Groß got a goal, an assist and three bonus for 14. Ben had a good day, and Brighton were having a party.",
+  "428": "Cunha scored in a 1-1 draw with three bonus for 10. Brahmes will take that all day.",
+  "94": "Schade made two assists and kept a clean sheet for 9. Josh was well served by the Brentford win.",
+  "453": "Barnes made two assists for 9 at Newcastle. Brahmes is quietly collecting these.",
+  "552": "Brobbey hit a hat-trick for 17 despite Sunderland conceding five. A worldie of a day for Ben, who has plenty more where that came from.",
+  "138": "Kostoulas scored and assisted in 75 minutes for 10. Ben had him on the bench, so that was 10 points to wave from the touchline."
  },
- "source": "claude"
+ "source": "claude",
+ "style": 2
 }

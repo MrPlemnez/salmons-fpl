@@ -1,23 +1,24 @@
 {
- "intro": "Gameweek 3, gentlemen. Liverpool won 2-0 at Ipswich, Arsenal beat Chelsea 2-1 and Man City edged Coventry 1-0. Everton and Man Utd drew 2-2, and Newcastle and Bournemouth did the same. Asher top-scored with 48 and extended his lead to 169. Jonny moved up to second on 43, with Louie also on 43 and climbing two places to fourth. Ben slipped to third. Josh scored 22, the lowest of the week, and fell two places to sixth. Brahmes remains eighth, on 93.",
- "motw": "Asher, 48 points. Gakpo, Gvardiol and Donnarumma all delivered, and the Man City clean sheet did a lot of the work. He leads by 22 points. The rest of you are now playing for second.",
- "stinker": "Josh, 22 points. The lowest score of the week and a drop of two places to sixth. Two waiver pickups, Dedić and Silva, returned a point each. Both conceded two. The waiver wire has had better weeks.",
- "bench": "Ben, Asher and Brahmes share this one, each with 14 points left on the bench. Ben left Sels on 6 and Šeško on 5. Asher benched N.Williams for 7, and Brahmes benched Pedro Porro for 7 and Kinsky for 6. Three managers, one shared lesson about the team sheet.",
- "bench_jam": "Louie, via Shaw. He replaced Bruno G. through the auto-subs and returned 4 points: an assist, a yellow card and 8 defensive contributions. Not a fortune. Louie will take it.",
- "red_card": "Josh, via Thiaw. He scored an own goal for Newcastle and finished on -1. Newcastle conceded two against Bournemouth. Josh was already having a quiet week. This did not help.",
- "gloves": "Jack, via Pickford. Everton conceded twice against Man Utd. One save, 1 point. Everton drew 2-2, so it is a modest sort of glory. Jack will accept the gloves.",
+ "intro": "Gentlemen, Gameweek 3 gave us Liverpool winning 2-0 at Ipswich, Arsenal beating Chelsea 2-1, and a Fulham 2-3 Crystal Palace thriller that Louie's man King still managed to haul in. Man City nicked a 1-0 against Coventry and Forest and Spurs shared a goalless draw. Asher topped the week with 48 and stays top on 169, a full 22 clear. Josh propped up the week with 22 and dropped two places to sixth. Jonny (43) went second, and Louie (also 43) jumped two places to fourth. Ben slipped to third. Absolute scenes at the top, squeaky bum time for Josh.",
+ "motw": "Asher, 48 points and never in doubt. Gakpo got 11 with two assists, Gvardiol 8 and Donnarumma 7. He is now 22 clear on 169, which is less a title race and more a victory lap. The rest of you are playing for second.",
+ "stinker": "Josh, 22 points and a drop from fourth to sixth. His best player was a goalkeeper, and the best of his outfielders was Rice with 5. Dedić and Silva each got 1 point after both came in off the waiver wire this week. Both conceded two. Set and forget is not a strategy when you keep forgetting to set.",
+ "bench": "Ben, Asher and Brahmes share this one, each leaving 14 points on the bench. Ben left Sels (6) and Šeško (5) there, and Brahmes parked Pedro Porro (7) and Kinsky (6) in the stands. Asher sat N.Williams on 7 while starting Khalaili on 3. The bench is where points go to die, gentlemen, and three of you dug the graves.",
+ "bench_jam": "Louie, take a bow. Shaw came on for Bruno G. via the auto-sub and returned 4 points, with an assist, a yellow card and 8 defensive contributions to his name. Not a worldie, but it beats a blank. Sometimes the best signing is the one the system makes for you.",
+ "red_card": "Josh again, because of course. Thiaw scored an own goal for Newcastle in their 2-2 with Bournemouth and ended on -1. Josh already had a bad week and now he has a defender scoring for the other lot. Somebody check the group chat for a hospital ball.",
+ "gloves": "Jack's Pickford takes the gloves with a single point. Everton conceded twice against Man Utd and he made one save. Jack owns a keeper on 1 point, a Sunday League performance that did nothing for Quantum of Tzolis. Still fifth, so he can live with it.",
  "xi": {
-  "350": "A.Becker kept a clean sheet for Liverpool and made 5 saves for 8 points. He is Josh's player. It was Josh's best contribution of the week.",
-  "391": "Gvardiol collected a clean sheet and 2 bonus points for 8. Asher owns him. Asher owns a lot of this week.",
-  "388": "Guéhi matched Gvardiol with 8 points and 9 defensive contributions. Another Man City defender, this time in Louie's team. The clean sheet was shared around.",
-  "469": "N.Williams scored 7 for Forest in the 0-0 with Spurs. He sat on Asher's bench. It did not matter, but it is noted.",
-  "367": "Gakpo supplied 2 assists, a clean sheet and 2 bonus for 11. Asher's team leader. The top of the table did not change.",
-  "68": "Tavernier scored for Bournemouth and took 3 bonus points for 10. Ben's strongest result. Bournemouth still conceded twice.",
-  "15": "Ødegaard scored against Chelsea and took 3 bonus for 10 in 76 minutes. A quiet, efficient return for Jonny.",
-  "69": "Scott had 2 assists and 10 points for Bournemouth. He sat on Jonny's bench. Jonny's second place survived the oversight.",
-  "268": "King scored for Fulham in a 2-3 defeat and still collected 10 points with 3 bonus. Louie benefited from a losing side.",
-  "379": "Isak scored twice in 63 minutes for 13, the top score of the week. Jonny's. Jonny moved up to second.",
-  "411": "Haaland scored against Coventry for 9 points, with 3 bonus. Louie's. Man City won 1-0 and he took the credit."
+  "350": "A.Becker kept a clean sheet for Liverpool with 5 saves and 8 points. Josh's only decent return of the week, and it still wasn't enough.",
+  "391": "Gvardiol got a clean sheet, 2 bonus and 8 points for Asher. Rock solid, as ever, in his pocket.",
+  "388": "Guéhi matched him with 8 points, a clean sheet and 2 bonus for Louie. Man City defenders are the new set and forget.",
+  "469": "N.Williams got 7 for Forest's clean sheet, and he sat on Asher's bench. Asher has points to spare, so he can afford the generosity.",
+  "367": "Gakpo had 11 with two assists and a clean sheet for Asher. Absolute scenes from the lad.",
+  "68": "Tavernier scored and got 3 bonus for 10 points despite Bournemouth conceding twice. Ben's bright spot in a week of benched points.",
+  "15": "Ødegaard scored and got 3 bonus for 10 points in 76 minutes. Jonny will take that and go home early.",
+  "69": "Scott's two assists got him 10 points for Jonny, and he sat on the bench. Jonny picked him up this week and then forgot to play him. Brilliant.",
+  "268": "King scored for Fulham in a 3-2 defeat and got 10 points for Louie thanks to 3 bonus. Lost the match, won the gameweek.",
+  "379": "Isak scored twice in 63 minutes, got 3 bonus and 13 points, the top score of the week. Jonny's differential is now everybody's problem.",
+  "411": "Haaland scored and got 3 bonus for 9 points. Business as usual, and Louie is buzzing."
  },
- "source": "claude"
+ "source": "claude",
+ "style": 2
 }

@@ -1,23 +1,24 @@
 {
- "intro": "Gameweek 9, gentlemen. Arsenal won at Anfield, Brighton won at the Etihad and Spurs saw off Palace. Jamie scored 51 and Brahmes 50. Louie managed 30 and sat at the bottom of the week's scores. Ben led on 460 and Asher stayed second on 422, with Jonny third on 399. Brahmes climbed two places to fourth on 396. Josh and Louie each slipped one place, to fifth and sixth. Jamie has the week's best score and is still last on 336. Make of that what you will.",
- "motw": "Jamie, 51 points, the best score of the week. Van Hecke scored and returned 15 after arriving on waivers for Gudmundsson. Tonali came in for Foden the same way and kept a clean sheet. The two pickups did their job. Jamie is still eighth on 336, which is a different problem.",
- "stinker": "Louie, 30 points, the lowest score of the week. The Arsenal clean sheet was owned in bulk, but Tzolis and Bruno G. returned 3 each. Raya sat on the bench with 5. Louie dropped from fifth to sixth. A quiet week.",
- "bench": "Jonny left 20 points on the bench. Verbruggen kept a clean sheet for Brighton against Man City, made seven saves and returned 11, and he did it from the bench. Boscagli added 6 there too. Leno played in goal for Fulham and conceded once for 2. Jonny stayed third, so he can afford the lesson.",
+ "intro": "Gameweek 9, gentlemen, and the Premier League did its bit. Arsenal won 1-0 at Liverpool, Brighton won 1-0 at Man City, and Everton nicked one at Newcastle. Jamie topped the week with 51 and Louie propped it up with 30. Brahmes clocked 50 and jumped two places to 4th. Ben stays top on 460 and Asher sits second on 422, so the title race is not quite ON just yet. Josh and Louie each slipped a place, which is the polite way of saying they had a mare.",
+ "motw": "Jamie, 51 points and a trophy for the week. Van Hecke scored and bagged 15, which is a lot for a defender who arrived on waivers. Tonali came in as well, so the transfer market is paying rent. The only blemish is Havertz, who sat on the bench with 9 points. Still, absolute scenes.",
+ "stinker": "Louie, 30 points, bottom of the pile. Five midfielders on the scoresheet and none of them got past 6. Tzolis came on as an auto-sub for 3 points. The kindest thing to say is that Arsenal kept a clean sheet and he still found a way.",
+ "bench": "Jonny left 20 points on the bench, and 11 of them were Verbruggen. The keeper made 7 saves, got 3 bonus and sat there with his gloves on. Boscagli added 6 more from the pine. The bench is where points go to die, and Jonny dug the grave himself.",
  "bench_jam": "",
- "red_card": "Jack owns Mateta. Mateta was sent off after 12 minutes at Spurs and returned -2. Palace then lost 2-0. Jack's other players did fine, but this was not a good use of a roster spot. Van Hecke scored in the same game, for Jamie.",
- "gloves": "Louie owns Tzolakis, who played 90 minutes for Hull and conceded two. He made one save and returned 1 point. Hull drew 2-2 with Ipswich, and McBurnie scored and assisted for Asher in that match. Louie's keeper helped Asher. Louie takes the gloves anyway.",
+ "red_card": "Jack owned Mateta, who lasted 12 minutes, saw red and finished on minus 2. That is a very short shift for a man who still managed to concede twice. Palace lost 2-0 to Spurs, so Jack can at least say it was a team effort. Squeaky bum time for the transfer list.",
+ "gloves": "Louie's Tzolakis kept goal for Hull in a 2-2 draw, conceded two and made one save. That earned a single point. Louie also owns a Tzolis, so this was a very Tzol-heavy week. Not a glove in sight, gentlemen.",
  "xi": {
-  "109": "Verbruggen made seven saves and kept a clean sheet at the Etihad. He scored 11 points, and Jonny had him on the bench. Awkward.",
-  "112": "Van Hecke scored and kept a clean sheet for 15 points. Jamie picked him up on waivers this week. It worked.",
-  "31": "Konsa kept a clean sheet at Anfield and returned 10. His 15 defensive contributions helped. Ben stays top.",
-  "230": "Branthwaite kept a clean sheet at Newcastle for 9 points. Josh left him on the bench. A familiar story in this league.",
-  "115": "De Cuyper assisted and kept a clean sheet for 9. Asher owned one of the men who beat Man City, and also three who lost.",
-  "40": "Rogers scored against Man Utd for 9 points. Brahmes owned Cunha on the other side, who returned 2.",
-  "154": "Palmer scored and kept a clean sheet for 8. Ben has a Chelsea attacker in the XI and a good week for it.",
-  "542": "Le Fée scored for Sunderland in a 3-1 loss at Coventry. He still returned 8. Josh will take it.",
-  "295": "McBurnie scored and assisted in the 2-2 draw with Ipswich and took 12 points. Louie's keeper Tzolakis conceded both goals. Good for Asher.",
-  "26": "Havertz scored at Anfield for 9 points. Jamie left him on the bench. His 51 would have been 60.",
-  "79": "Evanilson scored against Leeds in 75 minutes for 9. Brahmes had a very good week, and fourth place shows it."
+  "109": "Verbruggen made 7 saves and took 3 bonus in Brighton's 1-0 win at Man City. Jonny owns him and left him on the bench. Absolutely brutal.",
+  "112": "Van Hecke scored, kept a clean sheet and grabbed 3 bonus for 15 points. A waiver pickup for Jamie, and a big reason he won the week.",
+  "31": "Konsa kept a clean sheet and piled up 15 defensive contributions for 10 points. Ben is quietly collecting points at the top of the table.",
+  "230": "Branthwaite got a clean sheet and 3 bonus for 9 points. Josh left him on the bench, which does not help the title bid.",
+  "115": "De Cuyper got an assist, a clean sheet and a yellow card on the way to 9 points. Asher got a good return from his Brighton man.",
+  "40": "Rogers scored in Chelsea's 2-0 win over Man Utd for 9 points. Brahmes is climbing the table for a reason.",
+  "154": "Palmer scored and kept a clean sheet against Man Utd for 8 points. Ben also owns him, so the leader stays comfortable.",
+  "542": "E.Le Fée scored for Sunderland in a 3-1 defeat and still collected 8 points. Josh got a goal and a bonus from a losing side. You can't buy that.",
+  "295": "McBurnie scored, assisted and took 3 bonus in Hull's 2-2 draw. 12 points for Asher. That is what we call played himself into form.",
+  "26": "Havertz scored for Arsenal at Liverpool and took 3 bonus for 9 points. Jamie benched him and still won the week. Show-off.",
+  "79": "Evanilson scored for Bournemouth in a 2-0 win over Leeds for 9 points. Another good return for Brahmes, who is having a lovely week."
  },
- "source": "claude"
+ "source": "claude",
+ "style": 2
 }
