@@ -19,12 +19,23 @@ DIR = ROOT / "writeups"
 MODEL = "claude-sonnet-5-5"
 KEYS = ["intro", "motw", "stinker", "bench", "bench_jam", "red_card", "gloves"]
 
-SYSTEM = """You write the weekly column for a private FPL Draft league's stats site, read by eight mates in a WhatsApp group.
+# Bump STYLE whenever SYSTEM changes: every stored week is rewritten once in the new voice
+# (unless it has hand edits in overrides.json, which always win).
+STYLE = 2
 
-Voice: dry, deadpan British commentary addressed to "gentlemen". Short declarative sentences. Understatement. Build every joke on a real fact from the data and how it lands in this league: whose player hurt whose, who benefited from someone else's pick, who climbed or fell. Example of the register: "Prime's keeper denied Pickle's defender. Good for Prime, awkward at the next dinner." Gentle mockery only: no slurs, nothing about anyone's real life, appearance or family.
+SYSTEM = """You write the weekly column for a private FPL Draft league's stats site, read by a group of mates in a WhatsApp group who have known each other for years. The league is called Salmons and its crest is "Stoke Salmon FC".
+
+Voice: classic British Premier League fantasy banter. Think the group chat after a terrible gameweek, crossed with a pundit who has seen it all and is unimpressed. Address the readers as "gentlemen". Mix bone-dry deadpan with proper football-banter energy:
+- Lean on the game's shared language and clichés, used knowingly: "bottled it", "squeaky bum time", "can he do it on a cold, wet Tuesday night in Stoke?", "parked the bus", "Fergie time", "Sunday League", "the lads are buzzing", "absolute scenes", "differential", "set and forget", "played himself into form", "the bench is where points go to die", "a six-pointer", "the title race is ON", "never in doubt", "you can't buy that", "in his pocket", "hospital ball", "worldie", "rinsed".
+- Roast the managers' decisions, not the managers as people: benching the haul, owning the player who got sent off, trading away the bloke who then scored twice, being top and then not.
+- Find the league angle in every fact: whose player hurt whose, who profited from a player someone else dropped, who climbed, who fell, who is "having a mare".
+- Punchlines land at the end of a sentence. Short sentences. One good joke beats three average ones. Vary the openings; don't start every award the same way.
+- Example register: "Prime's keeper denied Pickle's defender. Good for Prime, awkward at the next dinner." / "Eight points on the bench and a 34 on the board. Somebody tell him the bench isn't a trophy cabinet."
+
+Keep it affectionate: no slurs, nothing about anyone's real life, job, appearance, family or relationships, and nothing genuinely nasty. Don't put invented quotes in the mouths of real people (players, managers, pundits).
 
 Hard rules:
-- Use ONLY the facts in the JSON. Never invent goals, assists, minutes, scores, injuries, quotes, transfers or match events. If a detail isn't in the data, leave it out.
+- Use ONLY the facts in the JSON. Never invent goals, assists, minutes, scores, injuries, transfers or match events. If a detail isn't in the data, leave it out. The jokes can be made up; the facts can't.
 - Refer to managers by the names given in the data.
 - Premier League clubs by their usual short names (Spurs, Man City, Forest are fine).
 - intro: 4-7 sentences: the notable real results, the top and bottom scores, movement at the top of the table.
@@ -78,13 +89,19 @@ def get(gw, facts, force=False):
     have_key = bool(os.environ.get("ANTHROPIC_API_KEY"))
     if f.exists() and not force:
         stored = json.loads(f.read_text())
-        if stored.get("source") == "claude" or not have_key:
+        current = stored.get("style", 1) == STYLE
+        if current and (stored.get("source") == "claude" or not have_key):
             return stored
+        if stored.get("source") == "claude" and not have_key:
+            return stored  # never downgrade Claude copy to templates
     w = None
     if have_key:
         w = _claude(gw, facts)
     if w is None:
+        if f.exists() and not force and json.loads(f.read_text()).get("source") == "claude":
+            return json.loads(f.read_text())  # API failed: keep the existing Claude copy
         w = _template(facts)
+    w["style"] = STYLE
     f.write_text(json.dumps(w, indent=1, ensure_ascii=False))
     return w
 
@@ -151,49 +168,67 @@ def _stat_bits(p):
 
 
 def _template(facts):
+    """Fallback copy when there's no API key. Facts are slotted into banter lines; the line
+    choice is seeded by gameweek so a week always reads the same."""
     rnd = random.Random(facts["gameweek"])
+    pick = rnd.choice
     a = facts["awards"]
     table = facts["league_table_after"]
     g = facts["gameweek"]
     top = table[0]
     second = table[1] if len(table) > 1 else None
     res = facts["premier_league_results"]
-    intro = [f"Good evening, gentlemen. Gameweek {g} is done."]
-    if res:
-        intro.append("Results included " + _names(res[: min(3, len(res))]) + ".")
     motw, stink = a["manager_of_the_week"], a["stinker_of_the_week"]
-    intro.append(f"{_names(motw['managers'])} top-scored with {motw['points']}; "
-                 f"{_names(stink['managers'])} managed {stink['points']}.")
+
+    intro = [pick([f"Good evening, gentlemen. Gameweek {g} is in the books.",
+                   f"Gentlemen. Gameweek {g}. Let's get into it.",
+                   f"Evening, gentlemen. Gameweek {g} has been and gone, and it's left a mark."])]
+    if res:
+        intro.append("On the pitch: " + _names(res[: min(3, len(res))]) + ".")
+    intro.append(pick([
+        f"{_names(motw['managers'])} led the way with {motw['points']}, while {_names(stink['managers'])} limped in on {stink['points']}.",
+        f"{_names(motw['managers'])} had the lads buzzing with {motw['points']}. {_names(stink['managers'])} posted {stink['points']} and has gone quiet in the chat.",
+        f"Top score {motw['points']} for {_names(motw['managers'])}. Bottom score {stink['points']} for {_names(stink['managers'])}. Absolute scenes at both ends.",
+    ]))
     if second:
         gap = top["total"] - second["total"]
-        intro.append(f"{top['manager']} leads on {top['total']}, {gap} clear of {second['manager']}."
-                     if gap else f"{top['manager']} and {second['manager']} are level at the top on {top['total']}.")
+        if gap == 0:
+            intro.append(f"{top['manager']} and {second['manager']} are level on {top['total']}. The title race is ON.")
+        elif gap <= 10:
+            intro.append(f"{top['manager']} leads on {top['total']}, just {gap} clear of {second['manager']}. Squeaky bum time, and it's only gameweek {g}.")
+        else:
+            intro.append(pick([f"{top['manager']} sits top on {top['total']}, {gap} clear of {second['manager']}, and is starting to look like he's parked the bus.",
+                               f"{top['manager']} leads by {gap} over {second['manager']}. Somebody needs to put a shift in."]))
     climbers = [r for r in table if r["moved"] > 0]
     if climbers:
         c = max(climbers, key=lambda r: r["moved"])
-        intro.append(f"{c['manager']} climbs {c['moved']} to {_ordinal(c['rank'])}.")
-    intro.append(rnd.choice(["Carry on.", "Make of that what you will.", "Nobody panic.", "As you were."]))
+        intro.append(f"{c['manager']} climbs {c['moved']} to {_ordinal(c['rank'])}, playing himself into form.")
+    intro.append(pick(["As you were.", "Nobody panic.", "Onwards.", "See you in the group chat."]))
 
     def sheet(name):
         return facts["team_sheets"].get(name, {})
 
     m0 = motw["managers"][0]
     best = sheet(m0).get("scorers", [])[:3]
-    motw_t = f"{_names(motw['managers'])} scored {motw['points']}, the best of the week."
+    motw_t = pick([f"{motw['points']} points. Never in doubt.",
+                   f"{_names(motw['managers'])} with {motw['points']}, the best of the week. You can't buy that.",
+                   f"{motw['points']} on the board. Take a bow, {m0}."])
     if best:
-        motw_t += " " + _names([f"{p['name']} ({p['points']})" for p in best]) + " did the heavy lifting."
+        motw_t += " " + _names([f"{p['name']} ({p['points']})" for p in best]) + " did the damage."
     mrow = next((r for r in table if r["manager"] == m0), None)
     if mrow:
-        motw_t += f" Now {_ordinal(mrow['rank'])} on {mrow['total']}."
+        motw_t += f" Up to {_ordinal(mrow['rank'])} on {mrow['total']}." if mrow["moved"] > 0 else f" Sits {_ordinal(mrow['rank'])} on {mrow['total']}."
 
     s0 = stink["managers"][0]
     srow = next((r for r in table if r["manager"] == s0), None)
-    stink_t = f"{stink['points']} points. That's the lot."
+    stink_t = pick([f"{stink['points']} points. Sunday League stuff.",
+                    f"{stink['points']} points. The lowest of the week, and it wasn't close to being a differential.",
+                    f"{stink['points']}. Bottled it."])
     sbest = sheet(s0).get("scorers", [])[:1]
     if sbest:
-        stink_t += f" {sbest[0]['name']} top-scored with {sbest[0]['points']}, which tells you how the rest went."
+        stink_t += f" {sbest[0]['name']} was his top scorer with {sbest[0]['points']}, which tells you everything about the rest."
     if srow and srow["moved"] < 0:
-        stink_t += f" Down {-srow['moved']} to {_ordinal(srow['rank'])}."
+        stink_t += f" Down {-srow['moved']} to {_ordinal(srow['rank'])}. Having a mare."
 
     b = a["bench_of_the_week"]
     bench_t = ""
@@ -202,8 +237,10 @@ def _template(facts):
         hits = [p for p in left if p["points"] > 0]
         bench_t = f"{b['points_left_on_bench']} points left on the bench."
         if hits:
-            bench_t += " " + _names([f"{p['name']} ({p['points']})" for p in hits]) + " watched from the side."
-        bench_t += " Team selection remains an art, not a science."
+            bench_t += " " + _names([f"{p['name']} ({p['points']})" for p in hits]) + " watched it all in a bib."
+        bench_t += " " + pick(["The bench is where points go to die.",
+                               "The bench isn't a trophy cabinet, gentlemen.",
+                               "Set and forget. Mostly forget."])
 
     j = a["bench_jam_of_the_week"]
     jam_t = ""
@@ -213,7 +250,9 @@ def _template(facts):
         bits = _stat_bits(j["player"])
         if bits:
             jam_t += " " + _names(bits).capitalize() + "."
-        jam_t += " Luck is a skill if you say it confidently."
+        jam_t += " " + pick(["Luck is a skill if you say it confidently.",
+                             "Fergie-time management.",
+                             "Tactical genius, or he forgot to make changes. You decide."])
 
     r = a["red_card_of_the_week"]
     red_t = ""
@@ -224,22 +263,26 @@ def _template(facts):
         red_t = f"{r['player']['name']} ({r['player']['club']}) returned {r['player']['points']} for {r['manager']}."
         if why:
             red_t += f" Featuring {why}."
+        red_t += " " + pick(["Hospital ball, but for points.", "Thanks for coming.", "One for the blooper reel."])
 
     gl = a["gloves_of_the_week"]
     gl_t = ""
     if gl:
         st = gl["player"]["stats"]
-        gl_t = f"{gl['player']['name']} ({gl['player']['club']}) scored {gl['player']['points']} for {gl['manager']}."
+        gl_t = f"{gl['player']['name']} ({gl['player']['club']}) returned {gl['player']['points']} for {gl['manager']}."
         if st.get("goals_conceded"):
             gl_t += f" Conceded {st['goals_conceded']}."
         if st.get("saves"):
             gl_t += f" Made {st['saves']} saves, for what it's worth."
+        gl_t += " " + pick(["Gloves made of butter.", "A keeper in name only.", "Could he do it on a cold, wet Tuesday night in Stoke? No."])
 
     xi = {}
     for p in facts["team_of_the_week"]["players"]:
         bits = _stat_bits(p)
         t = f"{p['points']} points for {p['owner']}"
         t += (": " + _names(bits) + "." if bits else ".")
+        if p["points"] >= 13:
+            t += " " + pick(["Worldie of a week.", "Rinsed them.", "Absolute scenes."])
         xi[str(p["element"])] = t
 
     return {"intro": " ".join(intro), "motw": motw_t, "stinker": stink_t, "bench": bench_t,
