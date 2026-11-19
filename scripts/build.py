@@ -601,19 +601,60 @@ def build(args):
     misses = sorted([d for d in draft_out if d["pick"] <= early_cut], key=lambda d: d["value"])[:10]
     draft_dt = details["league"].get("draft_dt")
 
-    # ---------------- waivers (latest round)
-    w_gws = sorted({t["event"] for t in tx["transactions"] if t["kind"] == "w"})
-    waivers = None
-    if w_gws:
-        wg = w_gws[-1]
-        rows = [t for t in tx["transactions"] if t["event"] == wg]
-        waivers = {
-            "gw": wg,
-            "claims": [{"id": t["entry"], "in": t["element_in"], "out": t["element_out"], "res": t["result"],
-                        "pri": t.get("priority"), "idx": t.get("index")} for t in rows if t["kind"] == "w"],
-            "fa": [{"id": t["entry"], "in": t["element_in"], "out": t["element_out"], "time": t["added"]}
-                   for t in rows if t["kind"] == "f" and t["result"] == "a"],
-        }
+    # ---------------- waivers: every round, plus a verdict on each completed move
+    # A move is judged over the same gameweeks for both players: from the first gameweek the new man
+    # is in the squad until he leaves it (or now). In = his points, out = what the dropped man scored
+    # over those weeks wherever he was. Hit at +3 or more, miss at -3 or worse (same as trades).
+    def judge(t):
+        eid, pin, pout, g0 = t["entry"], t["element_in"], t["element_out"], t["event"]
+        window = []
+        for g in range(g0, last_done + 1):
+            if pin in squad(eid, g):
+                window.append(g)
+            elif window:
+                break
+        if not window:
+            return {"gws": 0, "pin": 0, "pout": 0, "net": None, "counted": 0}
+        pts_in = sum(gpts(pin, g) for g in window)
+        pts_out = sum(gpts(pout, g) for g in window)
+        counted = sum(gpts(pin, g) for g in window if pin in lineups[(eid, g)][0])
+        return {"gws": len(window), "pin": pts_in, "pout": pts_out, "net": pts_in - pts_out, "counted": counted}
+
+    moves = []
+    for t in tx["transactions"]:
+        if t["result"] != "a" or t["element_in"] not in players or t["element_out"] not in players:
+            continue
+        v = judge(t)
+        moves.append({"id": t["entry"], "gw": t["event"], "k": t["kind"], "in": t["element_in"], "out": t["element_out"],
+                      "time": t["added"], "kept": owner_now.get(t["element_in"]) == t["entry"], **v})
+    moves.sort(key=lambda m: (m["gw"], m["time"] or ""))
+    rounds = {}
+    for t in sorted(tx["transactions"], key=lambda t: (t["event"], t.get("priority") or 0, t["added"] or "")):
+        r = rounds.setdefault(t["event"], {"claims": [], "fa": []})
+        if t["kind"] == "w":
+            r["claims"].append({"id": t["entry"], "in": t["element_in"], "out": t["element_out"], "res": t["result"],
+                                "pri": t.get("priority")})
+    for m in moves:
+        if m["k"] == "f":
+            rounds[m["gw"]]["fa"].append({"id": m["id"], "in": m["in"], "out": m["out"]})
+    kings = []
+    for eid in eids:
+        mine = [m for m in moves if m["id"] == eid and m["net"] is not None]
+        if not any(m["id"] == eid for m in moves):
+            continue
+        kings.append({"id": eid, "moves": sum(1 for m in moves if m["id"] == eid),
+                      "hits": sum(1 for m in mine if m["net"] >= 3), "misses": sum(1 for m in mine if m["net"] <= -3),
+                      "net": sum(m["net"] for m in mine), "counted": sum(m["counted"] for m in mine)})
+    kings.sort(key=lambda k: -k["net"])
+    judged = [m for m in moves if m["net"] is not None]
+    waivers = {
+        "rounds": {g: r for g, r in rounds.items()},
+        "moves": moves,
+        "kings": kings,
+        "best": sorted(judged, key=lambda m: (-m["net"], -m["pin"]))[:8],
+        "worst": sorted(judged, key=lambda m: (m["net"], m["pin"]))[:8],
+        "latest": max(rounds) if rounds else None,
+    } if rounds else None
     waiver_order = [m["id"] for m in sorted(managers, key=lambda m: m.get("waiver") or 99)]
 
     # ---------------- live / midweek view of the current gameweek

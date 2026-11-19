@@ -7,7 +7,7 @@ let D = null;
 const S = {
   tab: "week", sub: "home",
   me: lsGet("me", "1") === "1",
-  squad: null, totw: null, raceHl: null,
+  squad: null, totw: null, wround: null, raceHl: null,
   wirePos: "all", wireMin: 270,
   dir: "",
 };
@@ -247,21 +247,59 @@ V.preview = () => {
 V.waivers = () => {
   const w = D.waivers;
   const order = D.waiver_order.map((id, i) => `<tr${meAttr(id)}><td class="rank">${i + 1}</td><td>${who(id, { team: true })}</td></tr>`).join("");
-  let round = empty("No waiver claims yet.");
-  if (w) {
-    const RES = { a: ["good", "WON"], di: ["bad", "DENIED"], do: ["bad", "DENIED"], r: ["bad", "DENIED"] };
-    const byMgr = {};
-    w.claims.forEach((c) => (byMgr[c.id] = byMgr[c.id] || []).push(c));
-    round = `<div class="card">${Object.keys(byMgr).sort((a, b) => D.waiver_order.indexOf(+a) - D.waiver_order.indexOf(+b)).map((id) => `
-      <div class="pad" style="border-bottom:1px solid var(--line)">${who(id)}
-        ${byMgr[id].sort((a, b) => (a.pri || 0) - (b.pri || 0)).map((c) => { const [k, l] = RES[c.res] || ["n", c.res.toUpperCase()];
-          return `<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-top:8px;font-size:14px"><span>+ ${pTag(c.in)}<br><span class="club">drop ${esc(P(c.out).n)}</span></span><span class="chip ${k}">${l}</span></div>`; }).join("")}
-      </div>`).join("")}</div>
-      ${w.fa.length ? `<h3 class="section">Free agents since</h3><div class="card">${w.fa.map((f) => `<div class="pad" style="border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px">${who(f.id)}<span style="text-align:right;font-size:14px">+ ${esc(P(f.in).n)}<br><span class="club">drop ${esc(P(f.out).n)}</span></span></div>`).join("")}</div>` : ""}`;
-  }
-  return `<h2 class="title">Waivers${w ? " · GW" + w.gw : ""}</h2>
-  <p class="lede">The latest waiver round: who claimed whom, which claims failed, and who was dropped. Next round: ${when(D.meta.next && D.meta.next.waivers)}.</p>
-  ${round}
+  const next = `Next round: ${when(D.meta.next && D.meta.next.waivers)}.`;
+  if (!w) return `<h2 class="title">Waivers</h2><p class="lede">${next}</p>${empty("No waiver claims yet.")}`;
+  const key = (id, gw, i, o) => `${id}-${gw}-${i}-${o}`;
+  const mv = {};
+  w.moves.forEach((m) => (mv[key(m.id, m.gw, m.in, m.out)] = m));
+  const verdict = (m) => !m || m.net == null ? '<span class="chip n">PENDING</span>'
+    : `<span class="chip ${m.net >= 3 ? "good" : m.net <= -3 ? "bad" : "n"}">${m.net > 0 ? "+" : m.net < 0 ? "−" : "±"}${Math.abs(m.net)}</span>`;
+  const detail = (m) => !m || m.net == null ? "not played for him yet"
+    : `${m.pin} pts v ${m.pout} · ${plural(m.gws, "wk")}${m.kept ? "" : " · since moved on"}`;
+  const line = (inn, out, right, sub) => `<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-top:9px;font-size:14px">
+      <span style="min-width:0">+ ${pTag(inn)} <span class="club">for ${esc(P(out).n)}</span>${sub ? `<br><span class="club" style="font-family:var(--mono);font-size:11.5px">${sub}</span>` : ""}</span>${right}</div>`;
+
+  // season leaderboard
+  const kings = w.kings.map((k, i) => `<tr${meAttr(k.id)}><td class="rank">${i + 1}</td><td>${who(k.id)}</td>
+    <td class="r num">${k.moves}</td><td class="r num good-t">${k.hits}</td><td class="r num bad-t">${k.misses}</td>
+    <td class="big ${k.net > 0 ? "good-t" : k.net < 0 ? "bad-t" : ""}">${k.net > 0 ? "+" : ""}${cu(k.net)}</td></tr>`).join("");
+
+  // round view
+  const gws = Object.keys(w.rounds).map(Number).sort((a, b) => b - a);
+  const g = S.wround && w.rounds[S.wround] ? +S.wround : w.latest;
+  const r = w.rounds[g];
+  const byMgr = {};
+  r.claims.forEach((c) => (byMgr[c.id] = byMgr[c.id] || []).push(c));
+  const claims = Object.keys(byMgr).sort((a, b) => D.waiver_order.indexOf(+a) - D.waiver_order.indexOf(+b)).map((id) => `
+    <div class="pad" style="border-bottom:1px solid var(--line)">${who(id)}
+      ${byMgr[id].sort((a, b) => (a.pri || 0) - (b.pri || 0)).map((c) => {
+        if (c.res !== "a") return line(c.in, c.out, '<span class="chip bad">DENIED</span>');
+        const m = mv[key(+id, g, c.in, c.out)];
+        return line(c.in, c.out, verdict(m), detail(m));
+      }).join("")}
+    </div>`).join("");
+  const fa = r.fa.map((f) => { const m = mv[key(f.id, g, f.in, f.out)];
+    return `<div class="pad" style="border-bottom:1px solid var(--line)">${who(f.id)}${line(f.in, f.out, verdict(m), detail(m))}</div>`; }).join("");
+
+  const board = (list) => `<div class="card"><table class="t compact"><tbody>${list.map((m) => `<tr${meAttr(m.id)}>
+    <td>${av(m.id, "sm")}</td>
+    <td><span class="nm" style="font-weight:600">${esc(P(m.in).n)}</span> <span class="club">for ${esc(P(m.out).n)}</span><br>
+      <span class="club" style="font-family:var(--mono);font-size:11.5px">GW${m.gw} ${m.k === "f" ? "free agent" : "waiver"} · ${m.pin} v ${m.pout} · ${plural(m.gws, "wk")}</span></td>
+    <td class="r">${verdict(m)}</td></tr>`).join("")}</tbody></table></div>`;
+
+  return `<h2 class="title">Waivers</h2>
+  <p class="lede">Who's winning on the wire. Every completed move is judged by what the new man scored against what the dropped man scored over the same gameweeks, from the week he arrived until he left the squad (or now). +3 or better is a hit, −3 or worse a miss. ${next}</p>
+  <h3 class="section">Waiver kings</h3>
+  <p class="note">Season totals across waivers and free agents. Net is points gained minus points given up.</p>
+  <div class="card"><table class="t compact"><thead><tr><th>#</th><th>Manager</th><th class="r">Moves</th><th class="r">Hit</th><th class="r">Miss</th><th class="r">Net</th></tr></thead><tbody>${kings}</tbody></table></div>
+  <h3 class="section">Round by round</h3>
+  <div class="select-row"><span class="label">Showing</span>
+    <select class="sel" id="wround">${gws.map((x) => `<option value="${x}" ${x === g ? "selected" : ""}>GW${x} round${x === w.latest ? " · latest" : ""}</option>`).join("")}</select></div>
+  <p class="note">Claims in waiver order, with denied claims marked. The chip is how the move has worked out so far.</p>
+  ${claims ? `<div class="card">${claims}</div>` : empty("No waiver claims that round.")}
+  ${fa ? `<h3 class="section" style="font-size:22px;margin-top:22px">Free agents that week</h3><div class="card">${fa}</div>` : ""}
+  <h3 class="section">Best pickups</h3>${board(w.best)}
+  <h3 class="section">Worst moves</h3><p class="note">The dropped man kept scoring. Painful.</p>${board(w.worst)}
   <h3 class="section">Waiver order</h3><p class="note">First pick at the top.</p>
   <div class="card"><table class="t"><tbody>${order}</tbody></table></div>`;
 };
@@ -620,6 +658,7 @@ document.addEventListener("click", (e) => {
 });
 document.addEventListener("change", (e) => {
   if (e.target.id === "totw-gw") { S.totw = e.target.value; render(); }
+  if (e.target.id === "wround") { S.wround = e.target.value; render(false); }
   if (e.target.id === "wire-min") { S.wireMin = +e.target.value; lsSet("wireMin", S.wireMin); render(false); }
 });
 document.addEventListener("click", (e) => {
