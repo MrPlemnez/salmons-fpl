@@ -1,23 +1,23 @@
 {
- "intro": "Good evening, gentlemen. Gameweek 6 is done. Results included Arsenal 2-1 Leeds, Aston Villa 2-2 Brentford and Chelsea 5-1 Bournemouth. Brahmes top-scored with 55; Jack managed 29. Ben leads on 308, 3 clear of Asher. Ben climbs 1 to 1st. Carry on.",
- "motw": "Brahmes scored 55, the best of the week. Cunha (10), Rogers (9) and N.Jackson (9) did the heavy lifting. Now 6th on 246.",
- "stinker": "29 points. That's the lot. Mbeumo top-scored with 8, which tells you how the rest went. Down 2 to 7th.",
- "bench": "11 points left on the bench. Donnarumma (9), N.Williams (1) and Ndiaye (1) watched from the side. Team selection remains an art, not a science.",
- "bench_jam": "Castagne didn't play, so Rúben came off Jamie's bench and scored 6. A clean sheet. Luck is a skill if you say it confidently.",
- "red_card": "Horníček (Newcastle) returned 0 for Jamie.",
- "gloves": "Horníček (Newcastle) scored 0 for Jamie. Conceded 4. Made 2 saves, for what it's worth.",
+ "intro": "Gentlemen, Gameweek 6. Liverpool lost 0-3 to Man City, Chelsea beat Bournemouth 5-1, and Coventry beat Newcastle 4-1. Brahmes scored 55 and was the top score of the week. Jack scored 29 and was the bottom. Ben's 49 took him to first, a single place up. Asher's 39 dropped him to second, three points behind. Jonny moved up to third on 47, and Josh slipped to fourth. Jack fell two places to seventh.",
+ "motw": "Brahmes, 55 points, the best of the week. Cunha made 10 with an assist, 3 bonus and a defensive contribution of 14. Rogers added 9 and N.Jackson 9. Three of the week's best eleven were his, and he climbed to sixth. Still 62 points behind Ben, but moving in the right direction.",
+ "stinker": "Jack, 29 points, the lowest of the week. Mbeumo's 8 was the only real return. Rayan took 2 points from Bournemouth's 5 goals conceded, and Petrović sat on the bench for 0 after the same 5. Jack dropped two places to seventh.",
+ "bench": "Asher left 11 points on the bench, and the cause was Donnarumma. He made 9 for Man City with 6 saves, a clean sheet and a bonus point. Asher started Martinez, who made 3. The bench was the better goalkeeper. Asher is now second, three points behind Ben.",
+ "bench_jam": "Jamie's Rúben came on for Castagne and made 6 for Man City, with a clean sheet and 4 defensive contribution points. Castagne had arrived on waivers this week, so the auto-sub earned its keep. Jamie remains eighth, but this was a good bit of luck.",
+ "red_card": "Horníček of Newcastle, owned by Jamie. 90 minutes, 4 goals conceded against Coventry, 2 saves, 0 points. Jamie scored 32 this week and finished last in the league. The goalkeeper did not help.",
+ "gloves": "Horníček again, gentlemen. Newcastle's keeper conceded 4 and made 2 saves, so Jamie takes the gloves as well. A double award for one player. Jamie sits eighth on 212.",
  "xi": {
-  "384": "9 points for Asher: a clean sheet, 6 saves and 1 bonus.",
-  "115": "15 points for Asher: 1 goal, a clean sheet and 3 bonus.",
-  "8": "9 points for Ben: 1 goal and 1 bonus.",
-  "504": "8 points for Ben: a clean sheet and 15 defensive actions.",
-  "236": "13 points for Jonny: 1 goal, 1 assist, 3 bonus and 10 defensive actions.",
-  "428": "10 points for Brahmes: 1 assist, 3 bonus and 14 defensive actions.",
-  "399": "10 points for Jonny: 1 goal and 2 bonus.",
-  "40": "9 points for Brahmes: 1 goal and 13 defensive actions.",
-  "452": "9 points for Louie: 1 goal and 3 bonus.",
-  "165": "12 points for Josh: 2 goals and 2 bonus.",
-  "166": "9 points for Brahmes: 1 goal and 3 bonus."
+  "384": "Donnarumma made 9 for Man City with 6 saves, a clean sheet and a bonus point. He was on Asher's bench, which is where the 11 points went.",
+  "115": "De Cuyper scored for Brighton and kept a clean sheet. 15 points in 67 minutes, the top score in the team. Asher owns him, and the Brighton clean sheet helped others too.",
+  "8": "Calafiori scored for Arsenal and made 9. Ben's. He had a good week at the top of the table.",
+  "504": "Vuskovic kept a clean sheet for Brighton and recorded 15 defensive contribution points. 8 for Ben. Ben had another Brighton player in Groß.",
+  "236": "Dewsbury-Hall scored and assisted for Everton, with 3 bonus. 13 points for Jonny, who moved up to third.",
+  "428": "Cunha made 10 for Man Utd with an assist and 3 bonus. Brahmes owns him. The 1-1 draw with Spurs did not hurt.",
+  "399": "Cherki scored for Man City and made 10. Jonny owns him, as the Liverpool defence found out.",
+  "40": "Rogers scored for Chelsea and made 9 in 83 minutes. Brahmes again. Chelsea's 5 goals were widely enjoyed.",
+  "452": "Bruno G. scored for Arsenal in 27 minutes and took 3 bonus. 9 points for Louie. Efficient work.",
+  "165": "João Pedro scored twice for Chelsea and made 12 in 71 minutes. Josh owns him. He fell a place all the same.",
+  "166": "N.Jackson scored for Aston Villa and made 9 with 3 bonus. Brahmes owns him, which made the week's best score slightly less of a surprise."
  },
- "source": "template"
+ "source": "claude"
 }

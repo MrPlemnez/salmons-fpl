@@ -1,23 +1,23 @@
 {
- "intro": "Good evening, gentlemen. Gameweek 8 is done. Results included Ipswich Town 1-1 Nott'm Forest, Aston Villa 2-1 Man City and Arsenal 2-0 Everton. Brahmes top-scored with 61; Jamie managed 37. Ben leads on 418, 37 clear of Asher. Make of that what you will.",
- "motw": "Brahmes scored 61, the best of the week. N.Jackson (13), Araujo (10) and Araujo (10) did the heavy lifting. Now 6th on 346.",
- "stinker": "37 points. That's the lot. Hill top-scored with 11, which tells you how the rest went.",
- "bench": "14 points left on the bench. Verbruggen (2), Dewsbury-Hall (2) and Truffert (10) watched from the side. Team selection remains an art, not a science.",
- "bench_jam": "Matheus N. didn't play, so Araujo came off Brahmes's bench and scored 10. A clean sheet, 2 bonus and 11 defensive actions. Luck is a skill if you say it confidently.",
- "red_card": "Palmer (Chelsea) returned -1 for Ben. Featuring a red card.",
- "gloves": "Penders (Chelsea) scored 0 for Jamie. Conceded 2. Made 3 saves, for what it's worth.",
+ "intro": "Gentlemen, Gameweek 8. Liverpool, Arsenal and Bournemouth kept clean sheets and the points arrived in bulk. Man Utd lost 0-3 to Bournemouth, which will not be mentioned further. Brahmes scored 61, the top mark of the week. Jack made 58 and Josh 49. Jamie scored 37, the lowest, and stays last on 285. The top three did not move. Ben leads on 418, Asher is second on 381 and Jonny third on 364. Brahmes is sixth on 346, eight points off fifth place.",
+ "motw": "Brahmes, 61 points. N.Jackson scored twice for Aston Villa and took 13. Araujo and Virgil added 19 between them from the Liverpool clean sheet. Barnes, Barcola and Evanilson all contributed as well. Kinsky's 9 points sat on the bench. Brahmes can afford it. Nobody else is within three points of him.",
+ "stinker": "Jamie, 37 points. The lowest score of the week. Hill was excellent for 11 and Gudmundsson and Wirtz chipped in. After that it dried up. Gonzalo managed 2 and Neto 3. Jamie remains last, 61 points behind seventh place. That is a lot of Gameweeks of catching up.",
+ "bench": "Jonny left 14 points on the bench. Truffert's 10 for Bournemouth sat there with the assist and the clean sheet. It is a fine score to own and a poor place to keep it. Jonny is third on 364, so the cost was modest. He will still think about it.",
+ "bench_jam": "Brahmes had Araujo come on for Matheus N. and he returned 10 points. A clean sheet, 2 bonus and 11 defensive contributions. The auto-sub did the work. Brahmes gets the credit for owning him. A good week to have a spare defender at Liverpool.",
+ "red_card": "Ben's Palmer was sent off for Chelsea after 79 minutes and finished on -1. Chelsea lost 0-2 to Spurs, so he took the goals conceded penalty as well. Ben still scored 40 and leads by 37. He can absorb it. It was not the contribution he was hoping for.",
+ "gloves": "Jamie's Penders for Chelsea made 3 saves and conceded twice. He also scored an own goal, finishing on 0 points. Jamie brought him in on waivers this week for Horníček. Chelsea lost 0-2 to Spurs. Jamie's week was already poor, and the goalkeeper's own goal made it worse.",
  "xi": {
-  "385": "10 points for Josh: a clean sheet, 4 saves and 3 bonus.",
-  "4": "17 points for Jack: 1 goal, a clean sheet, 3 bonus and 14 defensive actions.",
-  "31": "14 points for Ben: 1 goal, a clean sheet and 2 bonus.",
-  "60": "11 points for Jamie: a clean sheet, 3 bonus and 22 defensive actions.",
-  "10": "10 points for Asher: 1 assist, a clean sheet and 1 bonus.",
-  "580": "10 points for Brahmes: a clean sheet, 2 bonus and 11 defensive actions.",
-  "68": "10 points for Ben: 1 goal and 2 bonus.",
-  "67": "10 points for Jack: 1 goal and 17 defensive actions.",
-  "166": "13 points for Brahmes: 2 goals and 3 bonus.",
-  "465": "9 points for Josh: 1 goal and 3 bonus.",
-  "379": "9 points for Jonny: 1 goal and 3 bonus."
+  "385": "Trafford kept a clean sheet for Leeds, made 4 saves and took 3 bonus. Ten points for Josh. Sunderland drew 0-0 with Leeds, so the goalkeeper had to work for it.",
+  "4": "Gabriel scored for Arsenal, kept a clean sheet and took 3 bonus. 17 points for Jack, the highest of the week. It is a lot for a defender.",
+  "31": "Konsa scored in Arsenal's 2-0 win over Everton. 14 points for Ben. Another Arsenal defender with a goal.",
+  "60": "Hill made 22 defensive contributions and took 3 bonus for 11 points. Jamie's best player this week. He brought him in this week from Kerkez.",
+  "10": "White had an assist and a clean sheet for Arsenal. Ten points for Asher. A quiet but useful return.",
+  "580": "Araujo came on as an auto-sub for Brahmes and made 10 points. Liverpool kept a clean sheet against Brighton. A good return for a replacement.",
+  "68": "Tavernier scored for Bournemouth in the 3-0 win at Man Utd. 10 points for Ben from midfield. He played 86 minutes.",
+  "67": "Rayan also scored against Man Utd and made 17 defensive contributions. Ten points for Jack. Jack and Ben shared the Bournemouth profit.",
+  "166": "N.Jackson scored twice for Aston Villa in the 2-1 win over Man City. 13 points for Brahmes. It was the best forward score in the team.",
+  "465": "Osula scored for Newcastle in the 2-0 win at Crystal Palace and took 3 bonus. Nine points for Josh. He played 76 minutes.",
+  "379": "Isak scored for Liverpool and took 3 bonus. Nine points for Jonny. Liverpool beat Brighton 2-0."
  },
- "source": "template"
+ "source": "claude"
 }

@@ -1,23 +1,23 @@
 {
- "intro": "Good evening, gentlemen. Gameweek 2 is done. Results included Crystal Palace 1-4 Man City, Liverpool 2-2 Nott'm Forest and Bournemouth 1-1 Everton. Josh top-scored with 61; Brahmes managed 30. Asher leads on 121, 16 clear of Ben. Josh climbs 2 to 4th. Carry on.",
- "motw": "Josh scored 61, the best of the week. Gibbs-White (13), Schade (10) and Foden (9) did the heavy lifting. Now 4th on 98.",
- "stinker": "30 points. That's the lot. Cunha top-scored with 9, which tells you how the rest went.",
- "bench": "20 points left on the bench. Horníček (7), Hall (11) and Rúben (2) watched from the side. Team selection remains an art, not a science.",
- "bench_jam": "Matheus N. didn't play, so Kudus came off Brahmes's bench and scored 1. Luck is a skill if you say it confidently.",
- "red_card": "A.Becker (Liverpool) returned 0 for Josh.",
- "gloves": "Verbruggen (Brighton) scored 0 for Jonny. Conceded 4. Made 1 saves, for what it's worth.",
+ "intro": "Gameweek 2, gentlemen. Man Utd put five past Ipswich Town and Chelsea edged Brighton 4-3. Man City won 4-1 at Palace, and Arsenal won 1-0 at Villa. Josh topped the week with 61 points and climbed two places to fourth. Brahmes propped up the table with 30 and now sits eighth on 58. Asher stays first on 121 despite scoring only 41, with Ben and Jonny unmoved in second and third. Louie dropped two places to sixth.",
+ "motw": "Josh, 61 points. Gibbs-White gave him 13, Schade 10, Foden and João Pedro 9 each. That is a very good week and a two-place climb to fourth. Josh is now 23 behind Asher. Dinner will be tense.",
+ "stinker": "Brahmes, 30 points. Cunha's 9 was the best of it. Lammens, Kayode and Thiago returned 2 each. He is last on 58, 23 behind seventh place. Gentlemen, the bottom of the table has a tenant.",
+ "bench": "Jamie left 20 points on the bench. Hall made 11 and Horníček 7, both Newcastle, both picked up this week and neither started. Jamie fielded Kelleher on 2 and Havertz on 2 instead. A fine pair of waiver pickups, filed under spectators.",
+ "bench_jam": "",
+ "red_card": "Josh's Becker scored 0 after two goals conceded, one save and a yellow card, all in a 2-2 draw with Forest. Josh still won the week. The goalkeeper's card cost him a point, and Gibbs-White at the other end gave him 13. It evens out, in a way.",
+ "gloves": "Jonny's keeper pick of the week was Verbruggen. Brighton conceded four, he made one save and scored 0. Ben's Groß scored 13 in the same game, so Brighton's night was not wasted in this league. Jonny only owns the gloves.",
  "xi": {
-  "566": "7 points for Jamie: a clean sheet and 4 saves.",
-  "229": "12 points for Louie: 1 goal, 2 bonus and 10 defensive actions.",
-  "8": "11 points for Ben: 1 assist, a clean sheet and 2 bonus.",
-  "449": "11 points for Jamie: a clean sheet, 3 bonus and 13 defensive actions.",
-  "426": "23 points for Jamie: 3 goals, 1 assist and 3 bonus.",
-  "399": "14 points for Jonny: 2 goals and 3 bonus.",
-  "124": "13 points for Ben: 1 goal, 1 assist and 3 bonus.",
-  "480": "13 points for Josh: 1 goal, 1 assist and 3 bonus.",
-  "12": "11 points for Asher: 1 goal, 3 bonus and 11 defensive actions.",
-  "411": "13 points for Louie: 2 goals and 3 bonus.",
-  "165": "9 points for Josh: 1 goal, 1 assist and 2 bonus."
+  "566": "Horníček, 7 points, a clean sheet and four saves. He sat on Jamie's bench. That is a luxury for Jamie.",
+  "229": "Tarkowski, 12 points with a goal and 10 defensive contributions. Louie's defender did the work. Everton drew 1-1 at Bournemouth.",
+  "8": "Calafiori, 11 points with an assist and a clean sheet. Ben's Arsenal defender backed up the 1-0 win at Villa.",
+  "449": "Hall, 11 points and full bonus. Another Newcastle player on Jamie's bench. Spurs were beaten 2-0 and Jamie got the credit from the bench.",
+  "426": "B.Fernandes, 23 points with three goals and an assist. Jamie's best player in a 5-2 win over Ipswich. The week's top scorer by a distance.",
+  "399": "Cherki, 14 points with two goals and full bonus. Jonny's best return in the week. Man City won 4-1 at Palace.",
+  "124": "Groß, 13 points with a goal and an assist, despite Brighton conceding four. Ben left him on the bench, so he got none of it. That one will sting.",
+  "480": "Gibbs-White, 13 points with a goal and an assist in a 2-2 draw at Liverpool. Josh's cornerstone for his big week.",
+  "12": "Saka, 11 points with a goal, a clean sheet and full bonus. Asher's best, and the reason he stays top.",
+  "411": "Haaland, 13 points with two goals against Palace. Louie's man. Asher owns Semenyo, Gvardiol and Ndiaye in the same game.",
+  "165": "João Pedro, 9 points with a goal, an assist and an own goal. Josh's Chelsea forward had a busy 4-3 win over Brighton."
  },
- "source": "template"
+ "source": "claude"
 }

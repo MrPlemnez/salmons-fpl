@@ -1,23 +1,23 @@
 {
- "intro": "Good evening, gentlemen. Gameweek 4 is done. Results included Aston Villa 1-2 Nott'm Forest, Bournemouth 2-2 Brentford and Chelsea 2-2 Hull City. Josh top-scored with 74; Jamie managed 18. Asher leads on 220, 15 clear of Ben. Josh climbs 3 to 3rd. Make of that what you will.",
- "motw": "Josh scored 74, the best of the week. Schade (15), João Pedro (12) and A.Becker (9) did the heavy lifting. Now 3rd on 194.",
- "stinker": "18 points. That's the lot. Kelleher top-scored with 3, which tells you how the rest went.",
- "bench": "15 points left on the bench. Horníček (1), Igor Jesus (7), Maguire (1) and Rúben (6) watched from the side. Team selection remains an art, not a science.",
- "bench_jam": "Georginio didn't play, so Branthwaite came off Josh's bench and scored 6. A clean sheet. Luck is a skill if you say it confidently.",
- "red_card": "Awoniyi (Coventry City) returned -2 for Ben. Featuring a red card.",
- "gloves": "Petrović (Bournemouth) scored 1 for Jack. Conceded 2.",
+ "intro": "Gentlemen, Gameweek 4. Man City won at Old Trafford, Leeds beat Newcastle 4-1, and Brighton scored five at Coventry. Spurs and Everton drew 0-0, and so did Liverpool and Fulham. Josh scored 74 and took the week. Jamie scored 18, which is a number that needs explaining. Asher stays top on 220, though his lead over Ben is down to 15. Ben goes second, Josh jumps three places to third, and Jonny drops two to fourth. Jamie and Brahmes are level on 136 in joint seventh.",
+ "motw": "Josh, 74 points. Schade got 15 and João Pedro 12. Becker added 9 from the Liverpool clean sheet. Gibbs-White and Strand Larsen each got 8. Josh climbs three places to third. Everyone else will be checking the lineup tonight.",
+ "stinker": "Jamie, 18 points. Kelleher led the scorers with 3. Nobody else on the scoring list got more than 3. Jamie is level with Brahmes on 136, and Brahmes scored 43 this week. Jamie will want to move on quickly.",
+ "bench": "Jamie left 15 points on the bench. Igor Jesus got 7 from 15 minutes, with a goal. Rúben added 6 with a clean sheet at Man City. Both sat out while the starting six scraped together 18. Dinner chat will be brief.",
+ "bench_jam": "Josh, and the substitution was automatic. Branthwaite came on for Georginio and delivered 6 points with a clean sheet and 9 defensive contributions. That is 6 points Josh did not choose and did not need. He won the week by 9 anyway.",
+ "red_card": "Ben's Awoniyi was sent off at Coventry after 52 minutes. He finished on -2, and Coventry conceded 5 in the match. Ben still moved up to second. Awoniyi did his best to prevent that.",
+ "gloves": "Jack's Petrović. Bournemouth conceded 2 against Brentford and the keeper took 1 point for his 90 minutes. Schade scored both of those goals, and they went to Josh. Jack's keeper helped Josh's week, which is awkward at the next dinner.",
  "xi": {
-  "1": "14 points for Louie: a clean sheet, 2 saves and 3 bonus.",
-  "391": "11 points for Asher: 1 assist, a clean sheet and 3 bonus.",
-  "115": "11 points for Asher: 1 assist, a clean sheet and 2 bonus.",
-  "362": "9 points for Ben: a clean sheet and 3 bonus.",
-  "389": "9 points for Brahmes: a clean sheet, 1 bonus and 11 defensive actions.",
-  "4": "9 points for Jack: a clean sheet, 2 bonus and 11 defensive actions.",
-  "124": "17 points for Ben: 1 goal, 2 assists and 3 bonus.",
-  "94": "15 points for Josh: 2 goals and 3 bonus.",
-  "165": "12 points for Josh: 1 goal, 1 assist and 3 bonus.",
-  "346": "10 points for Jonny: 1 goal, 1 assist and 2 bonus.",
-  "411": "9 points for Louie: 1 goal and 3 bonus."
+  "1": "Raya, 14 points. Clean sheet, a penalty saved and 3 bonus. Louie's best return of the week, and a keeper at that.",
+  "391": "Gvardiol, 11 points with an assist and a clean sheet at Old Trafford. Asher owns him. Brahmes and Louie also had City players in this list.",
+  "115": "De Cuyper, 11 points. Assist and clean sheet in Brighton's 5-0 win. Asher had two defenders in the XI and stays top.",
+  "362": "Jacquet, 9 points for Ben. Liverpool kept a clean sheet and he collected 3 bonus.",
+  "389": "Matheus N., 9 points with 11 defensive contributions. He was on Brahmes's bench. Brahmes should have a word with himself.",
+  "4": "Gabriel, 9 points. Arsenal's clean sheet at Sunderland, 2 bonus and a yellow card. Jack's best scorer.",
+  "124": "Groß, 17 points. A goal, two assists and a clean sheet at Coventry. Top scorer of the week, and Ben owns him.",
+  "94": "Schade, 15 points. Two goals at Bournemouth and 3 bonus. Josh's biggest contribution to a 74-point week.",
+  "165": "João Pedro, 12 points. A goal and an assist in the 2-2 draw with Hull. Another for Josh.",
+  "346": "Calvert-Lewin, 10 points in 77 minutes. A goal and an assist as Leeds beat Newcastle 4-1. Jonny's best scorer in a quiet week.",
+  "411": "Haaland, 9 points. A goal and a clean sheet at Man United. That is the sort of thing he does."
  },
- "source": "template"
+ "source": "claude"
 }

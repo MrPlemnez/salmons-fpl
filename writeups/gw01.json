@@ -1,23 +1,23 @@
 {
- "intro": "Good evening, gentlemen. Gameweek 1 is done. Results included Arsenal 3-0 Coventry City, Hull City 2-0 Man Utd and Everton 2-0 Crystal Palace. Asher top-scored with 80; Brahmes managed 28. Asher leads on 80, 21 clear of Ben. Make of that what you will.",
- "motw": "Asher scored 80, the best of the week. De Cuyper (17), Gakpo (12) and White (11) did the heavy lifting. Now 1st on 80.",
- "stinker": "28 points. That's the lot. Rogers top-scored with 8, which tells you how the rest went.",
- "bench": "10 points left on the bench. Trafford (9) and Hill (1) watched from the side. Team selection remains an art, not a science.",
- "bench_jam": "Amad didn't play, so Dewsbury-Hall came off Jonny's bench and scored 11. 1 goal and 3 bonus. Luck is a skill if you say it confidently.",
- "red_card": "Cash (Aston Villa) returned -1 for Jonny.",
- "gloves": "Lammens (Man Utd) scored 1 for Brahmes. Conceded 2. Made 2 saves, for what it's worth.",
+ "intro": "Gentlemen, Gameweek 1 is done and the table has opinions already. Asher scored 80 and leads by 21 from Ben on 59. Jonny is third on 55. Brahmes scored 28 and sits last, 52 points behind the leader. Louie and Jack are level on 42, as are Jamie and Josh on 37. Brentford beat Spurs 3-0, which will not have helped Brahmes, who owns Kinsky, Kudus and Sávio. Newcastle and Liverpool drew 2-2 and Man Utd lost 2-0 at Hull. Nobody has moved yet, because nobody could.",
+ "motw": "Asher, 80 points. De Cuyper scored 17 on his own, with a goal, an assist, a clean sheet and 2 bonus. Gakpo added 12 and White 11. Three players in the team of the week came from one squad. The rest of you were not at this level, and Ben is 21 points behind in second.",
+ "stinker": "Brahmes, 28 points. That is the lowest score in the league and 52 behind Asher. Kudus, Sávio and Doku all scored nothing, and Kinsky conceded 3 in a Spurs defeat. Rogers made 8, which was the high point of the week. It was a short list.",
+ "bench": "Josh and Jack, 10 points left on the bench each. Josh left Trafford on the bench. Trafford kept a clean sheet for Leeds, made 3 saves and scored 9. Jack left Muharemović there for 6 points. Both are doing well in the table, but they should check the team sheet.",
+ "bench_jam": "Jonny. Amad did not play, so Dewsbury-Hall came on and scored 11. He scored, kept a clean sheet and took 3 bonus for Everton. That is a decent swap for a man who had dropped Dorgu for Amad this week. Jonny sits third.",
+ "red_card": "Jonny, for Cash. The Aston Villa defender lost 1 point after Brighton scored 4 against Villa. He also picked up a yellow card. Cash played the full 90 minutes, so he had plenty of time to do it. Jonny recovered through Dewsbury-Hall, but this one will be remembered.",
+ "gloves": "Brahmes, for Lammens. The Man Utd keeper scored 1 point, conceded 2 and made 2 saves in a 2-0 defeat at Hull. He was on the same team as Cunha, who made 2 and conceded the same. Brahmes needed everything to go right and nothing did.",
  "xi": {
-  "385": "9 points for Josh: a clean sheet, 3 saves and 2 bonus.",
-  "115": "17 points for Asher: 1 goal, 1 assist, a clean sheet and 2 bonus.",
-  "10": "11 points for Asher: 1 assist, a clean sheet and 2 bonus.",
-  "388": "10 points for Louie: 1 goal and 2 bonus.",
-  "154": "13 points for Ben: 1 goal, 1 assist and 3 bonus.",
-  "335": "13 points for Jack: 1 goal, 3 bonus and 16 defensive actions.",
-  "367": "12 points for Asher: 1 goal, 3 bonus and 12 defensive actions.",
-  "15": "11 points for Jonny: 1 goal and 3 bonus.",
-  "236": "11 points for Jonny: 1 goal and 3 bonus.",
-  "165": "11 points for Josh: 1 goal, 1 assist and 2 bonus.",
-  "316": "9 points for Louie: 1 goal and 3 bonus."
+  "385": "Trafford kept a clean sheet for Leeds and scored 9. Josh left him on the bench. The team of the week noticed, and Josh probably did too.",
+  "115": "De Cuyper scored 17, the best score of the week. Asher owns him, and the table reflects it.",
+  "10": "White got an assist and a clean sheet for Arsenal, and scored 11. Asher again.",
+  "388": "Guéhi scored for Man City and made 10. Louie owns him, so some good came of the week.",
+  "154": "Palmer scored and assisted for Chelsea and made 13. Ben's best player, which explains why he is second.",
+  "335": "Stach scored for Leeds, kept a clean sheet and made 13. Jack's best score, and he had 16 defensive contributions too.",
+  "367": "Gakpo scored in the 2-2 draw at Newcastle and made 12. Asher owns him as well, naturally.",
+  "15": "Ødegaard scored for Arsenal and made 11 in 75 minutes. Jonny's second-best performer.",
+  "236": "Dewsbury-Hall scored 11 for Everton after coming on for Amad. Jonny's bench was better than most people's team.",
+  "165": "João Pedro scored and assisted for Chelsea and made 11. Josh is happy with that, even if the bench stayed busy.",
+  "316": "Emersonn scored for Ipswich and made 9 in 65 minutes. Louie brought him in on waivers this week, which looks fine."
  },
- "source": "template"
+ "source": "claude"
 }
