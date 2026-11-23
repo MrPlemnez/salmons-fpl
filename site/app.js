@@ -102,12 +102,27 @@ function when(iso, withDay = true) {
   return withDay ? `${day} at ${time}` : time;
 }
 
+
+// While a gameweek is under way (and not yet final), a provisional table from the live scores.
+function liveTable() {
+  const L = D.live;
+  if (!L || L.final || !L.fixtures.some((f) => f.started)) return null;
+  const official = Object.fromEntries(D.standings.map((s) => [s.id, s.rank]));
+  const rows = L.managers.slice().sort((a, b) => b.total - a.total);
+  const lead = rows.length ? rows[0].total : 0;
+  return { gw: L.gw, rows: rows.map((r, i) => {
+    const rank = i && rows[i - 1].total === r.total ? null : i + 1;
+    return { id: r.id, rank, gw: r.pts, total: r.total, gap: r.total - lead, move: (official[r.id] || i + 1) - (i + 1) };
+  }).map((r, i, arr) => ({ ...r, rank: r.rank || arr.slice(0, i).reverse().find((x) => x.rank).rank })) };
+}
+
 // ------------------------------------------------------------------ views
 const V = {};
 
 V.home = () => {
-  const st = D.standings;
-  if (!st.length) return empty("The season hasn't started yet.");
+  if (!D.standings.length) return empty("The season hasn't started yet.");
+  const lt = liveTable();
+  const st = lt ? lt.rows : D.standings;
   const lead = st[0], second = st[1];
   const gap = lead.total - (second ? second.total : 0);
   const g = gwData(lastGw());
@@ -119,7 +134,7 @@ V.home = () => {
   return `
   ${D.meta.live ? `<a class="banner" href="#/week/midweek" style="text-decoration:none"><span><span class="live-badge">LIVE</span>&nbsp; GW${D.live.gw} is on. Provisional scores in Midweek.</span><span>→</span></a>` : ""}
   <div class="hero">
-    <div class="label">Top of the table</div>
+    <div class="label">Top of the table${lt ? ` · GW${lt.gw} provisional` : ""}</div>
     <div class="big">${av(lead.id, "lg")}${esc(M(lead.id).name.toUpperCase())}</div>
     <div class="meta"><b>${cu(lead.total)} pts</b> · ${second ? (gap ? `${gap} clear of ${esc(M(second.id).name)}` : `level with ${esc(M(second.id).name)}`) : ""}</div>
   </div>
@@ -306,16 +321,23 @@ V.waivers = () => {
 
 V.standings = () => {
   if (!D.standings.length) return empty("No standings yet.");
-  const rows = D.standings.map((s) => `<tr${meAttr(s.id)}>
+  const table = (rows, gw) => `<div class="card"><table class="t compact"><thead><tr><th>#</th><th>Manager</th><th class="r">GW${gw}</th><th class="r">Total</th><th class="r">Gap</th></tr></thead><tbody>${rows.map((s) => `<tr${meAttr(s.id)}>
     <td class="rank">${s.rank}</td>
     <td>${who(s.id, { team: true, arrow: arrow(s.move) })}</td>
     <td class="r num">${s.gw}</td>
     <td class="big">${cu(s.total)}</td>
-    <td class="r num" style="color:var(--muted)">${s.gap ? s.gap : "–"}</td></tr>`).join("");
+    <td class="r num" style="color:var(--muted)">${s.gap ? s.gap : "–"}</td></tr>`).join("")}</tbody></table></div>`;
+  const lt = liveTable();
+  const champ = D.managers.some((m) => m.champ) ? '<p class="note">🏆 (c) marks last season\'s champion.</p>' : "";
+  if (lt) return `<div class="select-row" style="justify-content:space-between"><h2 class="title" style="margin:10px 0">Live table</h2>${D.meta.live ? '<span class="live-badge">LIVE</span>' : '<span class="chip y">PROVISIONAL</span>'}</div>
+  <p class="lede">Gameweek ${lt.gw} is still being played, so this is provisional: it includes live bonus and the auto-subs that will come in. Arrows show movement from the official table after GW${lastGw()}.</p>
+  ${table(lt.rows, lt.gw)}
+  <h3 class="section">Official table · after GW${lastGw()}</h3>
+  <p class="note">FPL updates this once gameweek ${lt.gw} is final.</p>
+  ${table(D.standings, lastGw())}${champ}`;
   return `<h2 class="title">League table</h2>
   <p class="lede">After gameweek ${lastGw()}. Arrows show movement since last week.</p>
-  <div class="card"><table class="t compact"><thead><tr><th>#</th><th>Manager</th><th class="r">GW${lastGw()}</th><th class="r">Total</th><th class="r">Gap</th></tr></thead><tbody>${rows}</tbody></table></div>
-  ${D.managers.some((m) => m.champ) ? '<p class="note">🏆 (c) marks last season\'s champion.</p>' : ""}`;
+  ${table(D.standings, lastGw())}${champ}`;
 };
 
 V.power = () => {
@@ -616,7 +638,8 @@ function header() {
   const m = D.meta;
   $("#app-title").textContent = m.app;
   $("#app-sub").textContent = m.sub || "";
-  $("#kicker").textContent = `FPL Draft · ${m.season} · ${m.after ? "After GW" + m.after : "Pre-season"}`;
+  const lt = liveTable();
+  $("#kicker").textContent = `FPL Draft · ${m.season} · ${lt ? "GW" + lt.gw + " in progress" : m.after ? "After GW" + m.after : "Pre-season"}`;
   $("#updated").textContent = "Updated " + when(m.updated, false);
   $("#live-slot").innerHTML = m.live ? '<span class="live-badge">LIVE</span>' : "";
   $("#me-toggle").setAttribute("aria-pressed", S.me);

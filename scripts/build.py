@@ -8,7 +8,9 @@
 import argparse
 import datetime as dt
 import json
+import os
 import sys
+import urllib.request
 from collections import defaultdict
 from itertools import combinations
 from pathlib import Path
@@ -853,10 +855,10 @@ def all_time_records(seasons):
 # --------------------------------------------------------------------------- gate for the scheduler
 
 def should_run():
-    """True during a match window (any kickoff from 3h ago to 20min ahead), otherwise only once an hour."""
+    """True during a match window (any kickoff from 20 min before to 3 h after), otherwise when the
+    live site's data is more than 50 minutes old. (GitHub often starts scheduled jobs 15-30 minutes
+    late, so this goes by the age of the published data rather than the clock.)"""
     t = now()
-    if t.minute < 15:
-        return True
     try:
         fixtures = fpl.main("fixtures/", max_age=6 * 3600)
     except Exception:
@@ -865,7 +867,16 @@ def should_run():
         ko = parse_time(f.get("kickoff_time"))
         if ko and ko - dt.timedelta(minutes=20) <= t <= ko + dt.timedelta(hours=3):
             return True
-    return False
+    site = os.environ.get("SITE_DATA_URL")
+    if not site:
+        return t.minute < 15
+    try:
+        req = urllib.request.Request(f"{site}?t={int(t.timestamp())}", headers={"User-Agent": fpl.UA})
+        with urllib.request.urlopen(req, timeout=20) as r:
+            updated = parse_time(json.loads(r.read())["meta"]["updated"])
+        return t - updated > dt.timedelta(minutes=50)
+    except Exception:
+        return True
 
 
 if __name__ == "__main__":
@@ -875,6 +886,6 @@ if __name__ == "__main__":
     ap.add_argument("--rewrite", type=int, default=None)
     a = ap.parse_args()
     if a.gate and not a.force and not should_run():
-        print("Outside match window and not the top of the hour - skipping.")
+        print("Outside a match window and the site was updated recently - skipping.")
         sys.exit(0)
     build(a)
