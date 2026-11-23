@@ -113,7 +113,7 @@ def _claude(gw, facts):
         print("  ! anthropic package not installed - using templates")
         return None
     try:
-        client = anthropic.Anthropic()
+        client = anthropic.Anthropic(timeout=180.0, max_retries=2)
         resp = client.beta.messages.create(
             model=MODEL,
             max_tokens=16000,

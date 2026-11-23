@@ -612,11 +612,21 @@ function render(animate = true) {
   const view = $("#view");
   let html;
   try { html = V[S.sub](); } catch (e) { console.error(e); html = empty("Something went wrong drawing this page."); }
-  view.innerHTML = `<div class="${animate ? "view-in " + S.dir : ""}">${html}<p class="foot">${esc(D.meta.app)} · data from the FPL Draft API · updated ${when(D.meta.updated)}</p></div>`;
+  view.innerHTML = `<div class="${animate ? "view-in " + S.dir : ""}">${staleNote()}${html}<p class="foot">${esc(D.meta.app)} · data from the FPL Draft API · updated ${when(D.meta.updated)}</p></div>`;
   S.dir = "";
   if (S.sub === "race") drawRace();
   countUp(view);
   document.title = `${tab.subs.find(([id]) => id === S.sub)[1]} · ${D.meta.app}`;
+}
+
+// If the published data has fallen behind (it should refresh every 15 min during games, hourly
+// otherwise), say so rather than quietly showing old numbers.
+function staleNote() {
+  const age = (Date.now() - new Date(D.meta.updated).getTime()) / 60000;
+  const limit = D.meta.live ? 45 : 180;
+  if (!(age > limit)) return "";
+  const ago = age < 120 ? `${Math.round(age)} minutes` : age < 2880 ? `${Math.round(age / 60)} hours` : `${Math.round(age / 1440)} days`;
+  return `<div class="banner" style="background:var(--amber-bg);color:var(--amber)"><span><b>Scores may be behind.</b> Last updated ${ago} ago. An automatic retry is on its way.</span></div>`;
 }
 
 function countUp(root) {

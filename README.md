@@ -59,3 +59,12 @@ To regenerate one gameweek's write-ups (e.g. GW10):
 ```bash
 gh workflow run update.yml -f rewrite=10
 ```
+
+## Keeping it running
+
+- **Update site** runs every 15 minutes, on off-peak minutes because GitHub delays jobs scheduled on the hour. It fully rebuilds during match windows, and otherwise whenever the published data is over 50 minutes old.
+- **Watchdog** runs every 30 minutes and checks the live site. If the data is older than 40 minutes during a match, or 110 minutes otherwise, it re-triggers **Update site**. If the site has been stale for over 4 hours, the watchdog run fails and GitHub emails you.
+- Each section of the build (write-ups, power, trades, Swap Shop, records, draft, waivers, live, preview) is isolated, so one crashing section is skipped and logged without blocking the rest.
+- `scripts/check_data.py` checks `data.json` before every deploy. If it fails, the last good version of the site stays up.
+- The app shows a "Scores may be behind" banner if the data is more than 45 minutes old during a match, or 3 hours otherwise.
+- GitHub pauses scheduled workflows after 60 days without repo activity. Over the summer break, re-enable both workflows from the Actions tab before the new season.

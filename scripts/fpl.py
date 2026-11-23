@@ -44,10 +44,13 @@ def _get(base, path, max_age=0, permanent=False):
                 body = r.read()
             _last[0] = time.time()
             data = json.loads(body)
+            if isinstance(data, dict) and set(data) <= {"detail", "message"}:
+                # FPL answers {"detail": "The game is being updated."} while it processes a gameweek
+                raise ValueError(f"FPL says: {data.get('detail') or data.get('message')}")
             f.write_text(json.dumps(data, separators=(",", ":")))
             stats["fetched"] += 1
             return data
-        except (urllib.error.URLError, json.JSONDecodeError, TimeoutError, ConnectionError) as e:
+        except (urllib.error.URLError, ValueError, TimeoutError, ConnectionError, OSError) as e:
             _last[0] = time.time()
             err = e
             if isinstance(e, urllib.error.HTTPError) and e.code == 404:

@@ -85,7 +85,14 @@ def r1(x):
 
 def build(args):
     t0 = now()
-    print("Fetching...")
+    issues = []
+
+    def section_failed(name, e):
+        import traceback
+        traceback.print_exc()
+        issues.append(f"{name} failed: {type(e).__name__}: {e}")
+        print(f"  ! {name} section failed - publishing everything else")
+
     dboot = fpl.draft("bootstrap-static", max_age=240)
     game = fpl.draft("game")
     details = fpl.draft(f"league/{LID}/details")
@@ -300,7 +307,6 @@ def build(args):
             rank_at[g][e] = rank_at[g][prev] if prev and cum[prev][g] == cum[e][g] else i + 1
 
     # ---------------- verification against the league's own standings
-    issues = []
     st_by_eid = {le_to_eid[s["league_entry"]]: s for s in details["standings"]}
     for eid in eids:
         api_total = st_by_eid[eid]["total"]
@@ -372,36 +378,42 @@ def build(args):
         }
 
     # ---------------- write-ups (once a gameweek is final and bonus is confirmed)
-    results_by_gw = {}
-    for g in done_gws:
-        results_by_gw[g] = [f"{teams[f['team_h']]['n']} {f['team_h_score']}-{f['team_a_score']} {teams[f['team_a']]['n']}"
-                            for f in sorted(fx_by_gw[g], key=lambda f: f["kickoff_time"] or "") if f.get("finished")]
-    tx_by_gw = defaultdict(lambda: defaultdict(list))
-    for t in tx["transactions"]:
-        if t["result"] == "a":
-            tx_by_gw[t["event"]][t["entry"]].append(t)
+    try:
+        results_by_gw = {}
+        for g in done_gws:
+            results_by_gw[g] = [f"{teams[f['team_h']]['n']} {f['team_h_score']}-{f['team_a_score']} {teams[f['team_a']]['n']}"
+                                for f in sorted(fx_by_gw[g], key=lambda f: f["kickoff_time"] or "") if f.get("finished")]
+        tx_by_gw = defaultdict(lambda: defaultdict(list))
+        for t in tx["transactions"]:
+            if t["result"] == "a":
+                tx_by_gw[t["event"]][t["entry"]].append(t)
 
-    wu_all = {}
-    for g in done_gws:
-        if not data_checked.get(g):
-            continue
-        facts = writeup_facts(g, gw_data[g], managers, players, teams, results_by_gw[g], lineups, tx_by_gw[g],
-                              cum, standings_at=rank_at)
-        wu_all[g] = writeups.get(g, facts, force=(args.rewrite == g))
-    overrides = writeups.overrides()
-    for g, w in wu_all.items():
-        gw_data[g]["writeup"] = writeups.apply_overrides(w, overrides.get(str(g), {}))
+        wu_all = {}
+        for g in done_gws:
+            if not data_checked.get(g):
+                continue
+            facts = writeup_facts(g, gw_data[g], managers, players, teams, results_by_gw[g], lineups, tx_by_gw[g],
+                                  cum, standings_at=rank_at)
+            wu_all[g] = writeups.get(g, facts, force=(args.rewrite == g))
+        overrides = writeups.overrides()
+        for g, w in wu_all.items():
+            gw_data[g]["writeup"] = writeups.apply_overrides(w, overrides.get(str(g), {}))
+    except Exception as e:  # one broken section must never stop the site updating
+        section_failed("write-ups", e)
 
     # ---------------- snapshots
-    snapdir = ROOT / "snapshots"
-    snapdir.mkdir(exist_ok=True)
-    for g in done_gws:
-        f = snapdir / f"gw{g:02d}.json"
-        if not f.exists() and data_checked.get(g):
-            f.write_text(json.dumps({"gw": g, "saved": now().isoformat(),
-                                     "table": [{"id": e, "name": mname[e], "rank": rank_at[g][e], "gw": score[e].get(g, 0),
-                                                "total": cum[e][g]} for e in sorted(eids, key=lambda e: rank_at[g][e])]},
-                                    indent=1))
+    try:
+        snapdir = ROOT / "snapshots"
+        snapdir.mkdir(exist_ok=True)
+        for g in done_gws:
+            f = snapdir / f"gw{g:02d}.json"
+            if not f.exists() and data_checked.get(g):
+                f.write_text(json.dumps({"gw": g, "saved": now().isoformat(),
+                                         "table": [{"id": e, "name": mname[e], "rank": rank_at[g][e], "gw": score[e].get(g, 0),
+                                                    "total": cum[e][g]} for e in sorted(eids, key=lambda e: rank_at[g][e])]},
+                                        indent=1))
+    except Exception as e:  # one broken section must never stop the site updating
+        section_failed("snapshots", e)
 
     # ---------------- current squads (element-status owner)
     squads = {eid: [pid for pid, o in owner_now.items() if o == eid and pid in players] for eid in eids}
@@ -428,42 +440,51 @@ def build(args):
         }
 
     # ---------------- power rankings
-    league_last3 = [sum(score[e].get(g, 0) for g in done_gws[-3:]) / max(1, len(done_gws[-3:])) for e in eids]
-    league_avg3 = sum(league_last3) / len(eids) if eids else 0
-    table_rank = {s["id"]: s["rank"] for s in standings}
-    power = []
-    for eid in eids:
-        pids = squads[eid]
-        pw = proj_week(pids)
-        top2 = sorted(pids, key=lambda p: -players[p]["pw"])[:2]
-        core = sorted(pids, key=lambda p: -players[p]["total"])[:11]
-        missing = [p for p in core if players[p]["status"] in ("i", "s", "u", "n") or (players[p]["cop"] is not None and players[p]["cop"] < 50)]
-        last3 = sum(score[eid].get(g, 0) for g in done_gws[-3:]) / max(1, len(done_gws[-3:]))
-        power.append({"id": eid, "proj": r1(pw), "top": top2, "missing": missing, "last3": r1(last3)})
-    power.sort(key=lambda x: -x["proj"])
-    for i, p in enumerate(power):
-        p["rank"] = i + 1
-        p["vs_table"] = table_rank.get(p["id"], i + 1) - (i + 1)
+    power, league_avg3 = [], 0.0
+    try:
+        league_last3 = [sum(score[e].get(g, 0) for g in done_gws[-3:]) / max(1, len(done_gws[-3:])) for e in eids]
+        league_avg3 = sum(league_last3) / len(eids) if eids else 0
+        table_rank = {s["id"]: s["rank"] for s in standings}
+        power = []
+        for eid in eids:
+            pids = squads[eid]
+            pw = proj_week(pids)
+            top2 = sorted(pids, key=lambda p: -players[p]["pw"])[:2]
+            core = sorted(pids, key=lambda p: -players[p]["total"])[:11]
+            missing = [p for p in core if players[p]["status"] in ("i", "s", "u", "n") or (players[p]["cop"] is not None and players[p]["cop"] < 50)]
+            last3 = sum(score[eid].get(g, 0) for g in done_gws[-3:]) / max(1, len(done_gws[-3:]))
+            power.append({"id": eid, "proj": r1(pw), "top": top2, "missing": missing, "last3": r1(last3)})
+        power.sort(key=lambda x: -x["proj"])
+        for i, p in enumerate(power):
+            p["rank"] = i + 1
+            p["vs_table"] = table_rank.get(p["id"], i + 1) - (i + 1)
+    except Exception as e:  # one broken section must never stop the site updating
+        section_failed("power rankings", e)
 
     # ---------------- needs
-    pos_points = {}
-    for eid in eids:
-        acc = {1: 0, 2: 0, 3: 0, 4: 0}
-        for g in done_gws:
-            for x in lineups[(eid, g)][0]:
-                if x in players:
-                    acc[players[x]["pos"]] += gpts(x, g)
-        pos_points[eid] = acc
-    who_needs = {}
-    for eid in eids:
-        row = {}
-        for pos in POS:
-            held = [p for p in squads[eid] if players[p]["pos"] == pos]
-            fit = [p for p in held if players[p]["fit"] and players[p]["regular"]]
-            target = NEEDS_TARGET[pos]
-            shade = "g" if len(fit) >= target else ("a" if len(fit) == target - 1 else "r")
-            row[pos] = {"fit": len(fit), "held": len(held), "shade": shade}
-        who_needs[eid] = row
+    pos_points = {eid: {1: 0, 2: 0, 3: 0, 4: 0} for eid in eids}
+    who_needs = {eid: {p: {'fit': 0, 'held': 0, 'shade': 'g'} for p in POS} for eid in eids}
+    try:
+        pos_points = {}
+        for eid in eids:
+            acc = {1: 0, 2: 0, 3: 0, 4: 0}
+            for g in done_gws:
+                for x in lineups[(eid, g)][0]:
+                    if x in players:
+                        acc[players[x]["pos"]] += gpts(x, g)
+            pos_points[eid] = acc
+        who_needs = {}
+        for eid in eids:
+            row = {}
+            for pos in POS:
+                held = [p for p in squads[eid] if players[p]["pos"] == pos]
+                fit = [p for p in held if players[p]["fit"] and players[p]["regular"]]
+                target = NEEDS_TARGET[pos]
+                shade = "g" if len(fit) >= target else ("a" if len(fit) == target - 1 else "r")
+                row[pos] = {"fit": len(fit), "held": len(held), "shade": shade}
+            who_needs[eid] = row
+    except Exception as e:  # one broken section must never stop the site updating
+        section_failed("needs", e)
 
     # ---------------- waiver wire
     wire = sorted([pid for pid, o in owner_now.items() if o is None and pid in players
@@ -471,240 +492,273 @@ def build(args):
                   key=lambda p: (-players[p]["pw"], -players[p]["total"]))
 
     # ---------------- trades (follow each squad slot through later waiver swaps)
+    trades_out, trade_rows = [], []
     acc_tx = sorted([t for t in tx["transactions"] if t["result"] == "a"], key=lambda t: (t["event"], t["added"]))
     done_trades = sorted([t for t in trades_raw.get("trades", []) if t["state"] == "p"],
                          key=lambda t: t.get("response_time") or "", reverse=True)
+    try:
 
-    def follow(eid, pid, start):
-        chain, pts, holder = [pid], 0, pid
-        for g in range(start, last_done + 1):
-            sq = squad(eid, g)
-            if holder not in sq:
-                nxt = next((t for t in acc_tx if t["entry"] == eid and t["element_out"] == holder
-                            and t["event"] <= g and t["element_in"] in sq), None)
-                if not nxt:
-                    holder = None
-                    break
-                holder = nxt["element_in"]
-                chain.append(holder)
-            pts += gpts(holder, g)
-        still = holder is not None and owner_now.get(holder) == eid
-        future = sum(players[holder]["proj"]) if still and holder in players else 0
-        return {"chain": chain, "pts": pts, "proj": r1(future), "value": r1(pts + future), "kept": still}
+        def follow(eid, pid, start):
+            chain, pts, holder = [pid], 0, pid
+            for g in range(start, last_done + 1):
+                sq = squad(eid, g)
+                if holder not in sq:
+                    nxt = next((t for t in acc_tx if t["entry"] == eid and t["element_out"] == holder
+                                and t["event"] <= g and t["element_in"] in sq), None)
+                    if not nxt:
+                        holder = None
+                        break
+                    holder = nxt["element_in"]
+                    chain.append(holder)
+                pts += gpts(holder, g)
+            still = holder is not None and owner_now.get(holder) == eid
+            future = sum(players[holder]["proj"]) if still and holder in players else 0
+            return {"chain": chain, "pts": pts, "proj": r1(future), "value": r1(pts + future), "kept": still}
 
-    trades_out, trade_table = [], {eid: {"won": 0, "lost": 0, "net": 0.0} for eid in eids}
-    for t in done_trades:
-        a, b, g0 = t["offered_entry"], t["received_entry"], t["event"]
-        a_gets = [follow(a, it["element_in"], g0) for it in t["tradeitem_set"]]
-        b_gets = [follow(b, it["element_out"], g0) for it in t["tradeitem_set"]]
-        va, vb = sum(x["value"] for x in a_gets), sum(x["value"] for x in b_gets)
-        margin = r1(va - vb)
-        winner = a if margin >= 3 else (b if margin <= -3 else None)
-        if winner:
-            loser = b if winner == a else a
-            trade_table[winner]["won"] += 1
-            trade_table[loser]["lost"] += 1
-        trade_table[a]["net"] += margin
-        trade_table[b]["net"] -= margin
-        trades_out.append({"gw": g0, "time": t.get("response_time"), "a": a, "b": b,
-                           "a_gets": a_gets, "b_gets": b_gets, "va": r1(va), "vb": r1(vb), "winner": winner})
-    trade_rows = sorted([{"id": e, **v, "net": r1(v["net"])} for e, v in trade_table.items()
-                         if v["won"] or v["lost"] or v["net"]], key=lambda r: -r["net"])
+        trades_out, trade_table = [], {eid: {"won": 0, "lost": 0, "net": 0.0} for eid in eids}
+        for t in done_trades:
+            a, b, g0 = t["offered_entry"], t["received_entry"], t["event"]
+            a_gets = [follow(a, it["element_in"], g0) for it in t["tradeitem_set"]]
+            b_gets = [follow(b, it["element_out"], g0) for it in t["tradeitem_set"]]
+            va, vb = sum(x["value"] for x in a_gets), sum(x["value"] for x in b_gets)
+            margin = r1(va - vb)
+            winner = a if margin >= 3 else (b if margin <= -3 else None)
+            if winner:
+                loser = b if winner == a else a
+                trade_table[winner]["won"] += 1
+                trade_table[loser]["lost"] += 1
+            trade_table[a]["net"] += margin
+            trade_table[b]["net"] -= margin
+            trades_out.append({"gw": g0, "time": t.get("response_time"), "a": a, "b": b,
+                               "a_gets": a_gets, "b_gets": b_gets, "va": r1(va), "vb": r1(vb), "winner": winner})
+        trade_rows = sorted([{"id": e, **v, "net": r1(v["net"])} for e, v in trade_table.items()
+                             if v["won"] or v["lost"] or v["net"]], key=lambda r: -r["net"])
+    except Exception as e:  # one broken section must never stop the site updating
+        section_failed("trades", e)
 
     # ---------------- swap shop: 1-for-1 and 2-for-2 like-for-like trades where both best XIs improve
-    base_pw = {eid: proj_week(squads[eid]) for eid in eids}
     swaps = []
-    for a, b in combinations(eids, 2):
-        found = []
-        for na in (1, 2):
-            for ga in combinations(squads[a], na):
-                pos_a = sorted(players[p]["pos"] for p in ga)
-                if any(players[p]["status"] in ("u", "n") for p in ga):
-                    continue
-                for gb in combinations(squads[b], na):
-                    if sorted(players[p]["pos"] for p in gb) != pos_a:
+    try:
+        base_pw = {eid: proj_week(squads[eid]) for eid in eids}
+        swaps = []
+        for a, b in combinations(eids, 2):
+            found = []
+            for na in (1, 2):
+                for ga in combinations(squads[a], na):
+                    pos_a = sorted(players[p]["pos"] for p in ga)
+                    if any(players[p]["status"] in ("u", "n") for p in ga):
                         continue
-                    if na == 2 and pos_a[0] == pos_a[1]:
-                        continue
-                    new_a = [p for p in squads[a] if p not in ga] + list(gb)
-                    new_b = [p for p in squads[b] if p not in gb] + list(ga)
-                    da = proj_week(new_a) - base_pw[a]
-                    db = proj_week(new_b) - base_pw[b]
-                    if da > 0.2 and db > 0.2:
-                        found.append({"a": a, "b": b, "a_gives": list(ga), "b_gives": list(gb),
-                                      "a_gain": r1(da), "b_gain": r1(db), "score": min(da, db)})
-        found.sort(key=lambda s: -s["score"])
-        swaps.extend(found[:1])
-    swaps.sort(key=lambda s: -s["score"])
-    swaps = swaps[:14]
-    for s in swaps:
-        s.pop("score", None)
+                    for gb in combinations(squads[b], na):
+                        if sorted(players[p]["pos"] for p in gb) != pos_a:
+                            continue
+                        if na == 2 and pos_a[0] == pos_a[1]:
+                            continue
+                        new_a = [p for p in squads[a] if p not in ga] + list(gb)
+                        new_b = [p for p in squads[b] if p not in gb] + list(ga)
+                        da = proj_week(new_a) - base_pw[a]
+                        db = proj_week(new_b) - base_pw[b]
+                        if da > 0.2 and db > 0.2:
+                            found.append({"a": a, "b": b, "a_gives": list(ga), "b_gives": list(gb),
+                                          "a_gain": r1(da), "b_gain": r1(db), "score": min(da, db)})
+            found.sort(key=lambda s: -s["score"])
+            swaps.extend(found[:1])
+        swaps.sort(key=lambda s: -s["score"])
+        swaps = swaps[:14]
+        for s in swaps:
+            s.pop("score", None)
+    except Exception as e:  # one broken section must never stop the site updating
+        section_failed("swap shop", e)
 
     # ---------------- records (this season)
     rec = {}
-    if done_gws:
-        allsc = [(score[e].get(g, 0), e, g) for e in eids for g in done_gws]
-        hi = max(allsc)
-        lo = min(allsc)
-        margins = []
-        for g in done_gws:
-            s = sorted(((score[e].get(g, 0), e) for e in eids), reverse=True)
-            margins.append((s[0][0] - s[1][0], s[0][1], g))
-        mg = max(margins)
-        bmax = max(((gw_data[g]["bench"][e], e, g) for e in eids for g in done_gws))
-        tcount = defaultdict(int)
-        for t in done_trades:
-            tcount[t["offered_entry"]] += 1
-            tcount[t["received_entry"]] += 1
-        xcount = defaultdict(int)
-        for t in acc_tx:
-            xcount[t["entry"]] += 1
-        rec = {
-            "high": {"v": hi[0], "id": hi[1], "gw": hi[2]},
-            "low": {"v": lo[0], "id": lo[1], "gw": lo[2]},
-            "margin": {"v": mg[0], "id": mg[1], "gw": mg[2]},
-            "bench": {"v": bmax[0], "id": bmax[1], "gw": bmax[2]},
-            "trades": ({"v": max(tcount.values()), "ids": [e for e in eids if tcount[e] == max(tcount.values())]}
-                       if tcount else None),
-            "transfers": {"v": max(xcount.values()), "ids": [e for e in eids if xcount[e] == max(xcount.values())]}
-            if xcount else None,
-            "hauls": [{"pts": p, "pid": x, "id": e, "gw": g} for p, x, e, g in
-                      sorted(((gpts(x, g), x, e, g) for e in eids for g in done_gws for x in lineups[(e, g)][0]),
-                             key=lambda t: (-t[0], t[3]))[:10]],
-            "bench_disasters": [{"pts": p, "pid": x, "id": e, "gw": g} for p, x, e, g in
-                                sorted(((gpts(x, g), x, e, g) for e in eids for g in done_gws for x in lineups[(e, g)][1]),
-                                       key=lambda t: (-t[0], t[3]))[:10]],
-        }
+    try:
+        rec = {}
+        if done_gws:
+            allsc = [(score[e].get(g, 0), e, g) for e in eids for g in done_gws]
+            hi = max(allsc)
+            lo = min(allsc)
+            margins = []
+            for g in done_gws:
+                s = sorted(((score[e].get(g, 0), e) for e in eids), reverse=True)
+                margins.append((s[0][0] - s[1][0], s[0][1], g))
+            mg = max(margins)
+            bmax = max(((gw_data[g]["bench"][e], e, g) for e in eids for g in done_gws))
+            tcount = defaultdict(int)
+            for t in done_trades:
+                tcount[t["offered_entry"]] += 1
+                tcount[t["received_entry"]] += 1
+            xcount = defaultdict(int)
+            for t in acc_tx:
+                xcount[t["entry"]] += 1
+            rec = {
+                "high": {"v": hi[0], "id": hi[1], "gw": hi[2]},
+                "low": {"v": lo[0], "id": lo[1], "gw": lo[2]},
+                "margin": {"v": mg[0], "id": mg[1], "gw": mg[2]},
+                "bench": {"v": bmax[0], "id": bmax[1], "gw": bmax[2]},
+                "trades": ({"v": max(tcount.values()), "ids": [e for e in eids if tcount[e] == max(tcount.values())]}
+                           if tcount else None),
+                "transfers": {"v": max(xcount.values()), "ids": [e for e in eids if xcount[e] == max(xcount.values())]}
+                if xcount else None,
+                "hauls": [{"pts": p, "pid": x, "id": e, "gw": g} for p, x, e, g in
+                          sorted(((gpts(x, g), x, e, g) for e in eids for g in done_gws for x in lineups[(e, g)][0]),
+                                 key=lambda t: (-t[0], t[3]))[:10]],
+                "bench_disasters": [{"pts": p, "pid": x, "id": e, "gw": g} for p, x, e, g in
+                                    sorted(((gpts(x, g), x, e, g) for e in eids for g in done_gws for x in lineups[(e, g)][1]),
+                                           key=lambda t: (-t[0], t[3]))[:10]],
+            }
+    except Exception as e:  # one broken section must never stop the site updating
+        section_failed("records", e)
 
     # ---------------- past seasons / all time
-    hist = json.loads(HISTORY_FILE.read_text()) if HISTORY_FILE.exists() else {"seasons": []}
-    seasons = sorted(hist.get("seasons", []), key=lambda s: s["season"])
-    if last_done == 38 and cur_done and not any(s["season"] == CONFIG["season"] for s in seasons):
-        seasons.append({"season": CONFIG["season"], "champion": mname[standings[0]["id"]],
-                        "table": [{"name": mname[s["id"]], "total": s["total"]} for s in standings]})
-    alltime = all_time_records(seasons)
+    seasons, alltime = [], {'titles': {}}
+    try:
+        hist = json.loads(HISTORY_FILE.read_text()) if HISTORY_FILE.exists() else {"seasons": []}
+        seasons = sorted(hist.get("seasons", []), key=lambda s: s["season"])
+        if last_done == 38 and cur_done and not any(s["season"] == CONFIG["season"] for s in seasons):
+            seasons.append({"season": CONFIG["season"], "champion": mname[standings[0]["id"]],
+                            "table": [{"name": mname[s["id"]], "total": s["total"]} for s in standings]})
+        alltime = all_time_records(seasons)
+    except Exception as e:  # one broken section must never stop the site updating
+        section_failed("past seasons", e)
 
     # ---------------- draft board
-    picks_list = sorted(choices["choices"], key=lambda c: c["index"])
-    rank_by_points = {pid: i + 1 for i, pid in enumerate(sorted(players, key=lambda p: -players[p]["total"]))}
-    draft_out = []
-    for c in picks_list:
-        pid, eid = c["element"], c["entry"]
-        if pid not in players:
-            continue
-        for_him = sum(gpts(pid, g) for g in done_gws if pid in squad(eid, g))
-        draft_out.append({"pick": c["pick"], "round": c["round"], "id": eid, "pid": pid,
-                          "rank": rank_by_points[pid], "value": c["pick"] - rank_by_points[pid],
-                          "kept": owner_now.get(pid) == eid, "for": for_him})
-    draft_order = [c["entry"] for c in picks_list if c["round"] == 1]
-    rounds = max((c["round"] for c in picks_list), default=0)
-    best_value = sorted(draft_out, key=lambda d: -d["value"])[:10]
-    early_cut = len(eids) * 6
-    misses = sorted([d for d in draft_out if d["pick"] <= early_cut], key=lambda d: d["value"])[:10]
-    draft_dt = details["league"].get("draft_dt")
+    draft_out, draft_order, rounds, best_value, misses, draft_dt = [], [], 0, [], [], None
+    try:
+        picks_list = sorted(choices["choices"], key=lambda c: c["index"])
+        rank_by_points = {pid: i + 1 for i, pid in enumerate(sorted(players, key=lambda p: -players[p]["total"]))}
+        draft_out = []
+        for c in picks_list:
+            pid, eid = c["element"], c["entry"]
+            if pid not in players:
+                continue
+            for_him = sum(gpts(pid, g) for g in done_gws if pid in squad(eid, g))
+            draft_out.append({"pick": c["pick"], "round": c["round"], "id": eid, "pid": pid,
+                              "rank": rank_by_points[pid], "value": c["pick"] - rank_by_points[pid],
+                              "kept": owner_now.get(pid) == eid, "for": for_him})
+        draft_order = [c["entry"] for c in picks_list if c["round"] == 1]
+        rounds = max((c["round"] for c in picks_list), default=0)
+        best_value = sorted(draft_out, key=lambda d: -d["value"])[:10]
+        early_cut = len(eids) * 6
+        misses = sorted([d for d in draft_out if d["pick"] <= early_cut], key=lambda d: d["value"])[:10]
+        draft_dt = details["league"].get("draft_dt")
+    except Exception as e:  # one broken section must never stop the site updating
+        section_failed("draft board", e)
 
     # ---------------- waivers: every round, plus a verdict on each completed move
-    # A move is judged over the same gameweeks for both players: from the first gameweek the new man
-    # is in the squad until he leaves it (or now). In = his points, out = what the dropped man scored
-    # over those weeks wherever he was. Hit at +3 or more, miss at -3 or worse (same as trades).
-    def judge(t):
-        eid, pin, pout, g0 = t["entry"], t["element_in"], t["element_out"], t["event"]
-        window = []
-        for g in range(g0, last_done + 1):
-            if pin in squad(eid, g):
-                window.append(g)
-            elif window:
-                break
-        if not window:
-            return {"gws": 0, "pin": 0, "pout": 0, "net": None, "counted": 0}
-        pts_in = sum(gpts(pin, g) for g in window)
-        pts_out = sum(gpts(pout, g) for g in window)
-        counted = sum(gpts(pin, g) for g in window if pin in lineups[(eid, g)][0])
-        return {"gws": len(window), "pin": pts_in, "pout": pts_out, "net": pts_in - pts_out, "counted": counted}
+    waivers = None
+    try:
+        # A move is judged over the same gameweeks for both players: from the first gameweek the new man
+        # is in the squad until he leaves it (or now). In = his points, out = what the dropped man scored
+        # over those weeks wherever he was. Hit at +3 or more, miss at -3 or worse (same as trades).
+        def judge(t):
+            eid, pin, pout, g0 = t["entry"], t["element_in"], t["element_out"], t["event"]
+            window = []
+            for g in range(g0, last_done + 1):
+                if pin in squad(eid, g):
+                    window.append(g)
+                elif window:
+                    break
+            if not window:
+                return {"gws": 0, "pin": 0, "pout": 0, "net": None, "counted": 0}
+            pts_in = sum(gpts(pin, g) for g in window)
+            pts_out = sum(gpts(pout, g) for g in window)
+            counted = sum(gpts(pin, g) for g in window if pin in lineups[(eid, g)][0])
+            return {"gws": len(window), "pin": pts_in, "pout": pts_out, "net": pts_in - pts_out, "counted": counted}
 
-    moves = []
-    for t in tx["transactions"]:
-        if t["result"] != "a" or t["element_in"] not in players or t["element_out"] not in players:
-            continue
-        v = judge(t)
-        moves.append({"id": t["entry"], "gw": t["event"], "k": t["kind"], "in": t["element_in"], "out": t["element_out"],
-                      "time": t["added"], "kept": owner_now.get(t["element_in"]) == t["entry"], **v})
-    moves.sort(key=lambda m: (m["gw"], m["time"] or ""))
-    rounds = {}
-    for t in sorted(tx["transactions"], key=lambda t: (t["event"], t.get("priority") or 0, t["added"] or "")):
-        r = rounds.setdefault(t["event"], {"claims": [], "fa": []})
-        if t["kind"] == "w":
-            r["claims"].append({"id": t["entry"], "in": t["element_in"], "out": t["element_out"], "res": t["result"],
-                                "pri": t.get("priority")})
-    for m in moves:
-        if m["k"] == "f":
-            rounds[m["gw"]]["fa"].append({"id": m["id"], "in": m["in"], "out": m["out"]})
-    kings = []
-    for eid in eids:
-        mine = [m for m in moves if m["id"] == eid and m["net"] is not None]
-        if not any(m["id"] == eid for m in moves):
-            continue
-        kings.append({"id": eid, "moves": sum(1 for m in moves if m["id"] == eid),
-                      "hits": sum(1 for m in mine if m["net"] >= 3), "misses": sum(1 for m in mine if m["net"] <= -3),
-                      "net": sum(m["net"] for m in mine), "counted": sum(m["counted"] for m in mine)})
-    kings.sort(key=lambda k: -k["net"])
-    judged = [m for m in moves if m["net"] is not None]
-    waivers = {
-        "rounds": {g: r for g, r in rounds.items()},
-        "moves": moves,
-        "kings": kings,
-        "best": sorted(judged, key=lambda m: (-m["net"], -m["pin"]))[:8],
-        "worst": sorted(judged, key=lambda m: (m["net"], m["pin"]))[:8],
-        "latest": max(rounds) if rounds else None,
-    } if rounds else None
+        moves = []
+        for t in tx["transactions"]:
+            if t["result"] != "a" or t["element_in"] not in players or t["element_out"] not in players:
+                continue
+            v = judge(t)
+            moves.append({"id": t["entry"], "gw": t["event"], "k": t["kind"], "in": t["element_in"], "out": t["element_out"],
+                          "time": t["added"], "kept": owner_now.get(t["element_in"]) == t["entry"], **v})
+        moves.sort(key=lambda m: (m["gw"], m["time"] or ""))
+        rounds = {}
+        for t in sorted(tx["transactions"], key=lambda t: (t["event"], t.get("priority") or 0, t["added"] or "")):
+            r = rounds.setdefault(t["event"], {"claims": [], "fa": []})
+            if t["kind"] == "w":
+                r["claims"].append({"id": t["entry"], "in": t["element_in"], "out": t["element_out"], "res": t["result"],
+                                    "pri": t.get("priority")})
+        for m in moves:
+            if m["k"] == "f":
+                rounds[m["gw"]]["fa"].append({"id": m["id"], "in": m["in"], "out": m["out"]})
+        kings = []
+        for eid in eids:
+            mine = [m for m in moves if m["id"] == eid and m["net"] is not None]
+            if not any(m["id"] == eid for m in moves):
+                continue
+            kings.append({"id": eid, "moves": sum(1 for m in moves if m["id"] == eid),
+                          "hits": sum(1 for m in mine if m["net"] >= 3), "misses": sum(1 for m in mine if m["net"] <= -3),
+                          "net": sum(m["net"] for m in mine), "counted": sum(m["counted"] for m in mine)})
+        kings.sort(key=lambda k: -k["net"])
+        judged = [m for m in moves if m["net"] is not None]
+        waivers = {
+            "rounds": {g: r for g, r in rounds.items()},
+            "moves": moves,
+            "kings": kings,
+            "best": sorted(judged, key=lambda m: (-m["net"], -m["pin"]))[:8],
+            "worst": sorted(judged, key=lambda m: (m["net"], m["pin"]))[:8],
+            "latest": max(rounds) if rounds else None,
+        } if rounds else None
+    except Exception as e:  # one broken section must never stop the site updating
+        section_failed("waivers", e)
+
     waiver_order = [m["id"] for m in sorted(managers, key=lambda m: m.get("waiver") or 99)]
 
     # ---------------- live / midweek view of the current gameweek
-    live_out = None
-    if current:
-        g = current
-        rows = []
-        for eid in eids:
-            scorers, bench_left, s_in, s_out = lineups[(eid, g)]
-            pk = sorted(picks[(eid, g)]["picks"], key=lambda x: x["position"])
-            plist = []
-            for x in pk:
-                pid = x["element"]
-                if pid not in players:
-                    continue
-                st = players[pid]["stats"].get(g, {})
-                role = "in" if pid in s_in else ("out" if pid in s_out else ("xi" if x["position"] <= 11 else "bench"))
-                team = players[pid]["team"]
-                fxs = [f for f in fx_by_gw[g] if team in (f["team_h"], f["team_a"])]
-                state = "none" if not fxs else ("done" if team_done(team, g) else
-                                                ("live" if any(f.get("started") for f in fxs) else "pre"))
-                plist.append({"pid": pid, "pts": gpts(pid, g), "min": st.get("minutes", 0), "role": role,
-                              "bp": st.get("bonus_prov", 0), "b": st.get("bonus", 0), "yc": st.get("yellow_cards", 0),
-                              "rc": st.get("red_cards", 0), "g": st.get("goals_scored", 0), "a": st.get("assists", 0),
-                              "state": state})
-            pts = live_scores.get(eid, score[eid].get(g, 0))
-            prev_total = cum[eid].get(g - 1, 0)
-            rows.append({"id": eid, "pts": pts, "total": prev_total + pts, "players": plist})
-        rows.sort(key=lambda r: -r["total"])
-        fixtures_g = [{"h": f["team_h"], "a": f["team_a"], "hs": f["team_h_score"], "as": f["team_a_score"],
-                       "ko": f["kickoff_time"], "started": f.get("started"), "done": f.get("finished") or f.get("finished_provisional"),
-                       "min": f.get("minutes")} for f in sorted(fx_by_gw[g], key=lambda f: f["kickoff_time"] or "")]
-        live_out = {"gw": g, "final": cur_done, "checked": bool(data_checked.get(g)), "managers": rows, "fixtures": fixtures_g}
-    is_live = bool(live_out and not cur_done and any(f["started"] and not f["done"] for f in live_out["fixtures"]))
+    live_out, is_live = None, False
+    try:
+        live_out = None
+        if current:
+            g = current
+            rows = []
+            for eid in eids:
+                scorers, bench_left, s_in, s_out = lineups[(eid, g)]
+                pk = sorted(picks[(eid, g)]["picks"], key=lambda x: x["position"])
+                plist = []
+                for x in pk:
+                    pid = x["element"]
+                    if pid not in players:
+                        continue
+                    st = players[pid]["stats"].get(g, {})
+                    role = "in" if pid in s_in else ("out" if pid in s_out else ("xi" if x["position"] <= 11 else "bench"))
+                    team = players[pid]["team"]
+                    fxs = [f for f in fx_by_gw[g] if team in (f["team_h"], f["team_a"])]
+                    state = "none" if not fxs else ("done" if team_done(team, g) else
+                                                    ("live" if any(f.get("started") for f in fxs) else "pre"))
+                    plist.append({"pid": pid, "pts": gpts(pid, g), "min": st.get("minutes", 0), "role": role,
+                                  "bp": st.get("bonus_prov", 0), "b": st.get("bonus", 0), "yc": st.get("yellow_cards", 0),
+                                  "rc": st.get("red_cards", 0), "g": st.get("goals_scored", 0), "a": st.get("assists", 0),
+                                  "state": state})
+                pts = live_scores.get(eid, score[eid].get(g, 0))
+                prev_total = cum[eid].get(g - 1, 0)
+                rows.append({"id": eid, "pts": pts, "total": prev_total + pts, "players": plist})
+            rows.sort(key=lambda r: -r["total"])
+            fixtures_g = [{"h": f["team_h"], "a": f["team_a"], "hs": f["team_h_score"], "as": f["team_a_score"],
+                           "ko": f["kickoff_time"], "started": f.get("started"), "done": f.get("finished") or f.get("finished_provisional"),
+                           "min": f.get("minutes")} for f in sorted(fx_by_gw[g], key=lambda f: f["kickoff_time"] or "")]
+            live_out = {"gw": g, "final": cur_done, "checked": bool(data_checked.get(g)), "managers": rows, "fixtures": fixtures_g}
+        is_live = bool(live_out and not cur_done and any(f["started"] and not f["done"] for f in live_out["fixtures"]))
+    except Exception as e:  # one broken section must never stop the site updating
+        section_failed("live view", e)
 
     # ---------------- preview of the next gameweek
     preview = None
-    if upcoming:
-        g = upcoming[0]
-        rows = []
-        for eid in eids:
-            tot, xi, form = proj_best(squads[eid], 0)
-            doubts = [{"pid": p, "news": players[p]["news"], "cop": players[p]["cop"]} for p in squads[eid]
-                      if players[p]["status"] != "a" or (players[p]["cop"] is not None and players[p]["cop"] < 100)]
-            rows.append({"id": eid, "proj": r1(tot), "formation": form, "xi": xi, "doubts": doubts})
-        rows.sort(key=lambda r: -r["proj"])
-        ev = events.get(g, {})
-        preview = {"gw": g, "deadline": ev.get("deadline_time"), "managers": rows}
+    try:
+        preview = None
+        if upcoming:
+            g = upcoming[0]
+            rows = []
+            for eid in eids:
+                tot, xi, form = proj_best(squads[eid], 0)
+                doubts = [{"pid": p, "news": players[p]["news"], "cop": players[p]["cop"]} for p in squads[eid]
+                          if players[p]["status"] != "a" or (players[p]["cop"] is not None and players[p]["cop"] < 100)]
+                rows.append({"id": eid, "proj": r1(tot), "formation": form, "xi": xi, "doubts": doubts})
+            rows.sort(key=lambda r: -r["proj"])
+            ev = events.get(g, {})
+            preview = {"gw": g, "deadline": ev.get("deadline_time"), "managers": rows}
+    except Exception as e:  # one broken section must never stop the site updating
+        section_failed("preview", e)
 
     # ---------------- next deadline
     nxt = events.get(game.get("next_event") or 0) or {}
