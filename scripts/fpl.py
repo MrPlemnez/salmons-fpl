@@ -30,7 +30,8 @@ def _key(base, path):
 def _get(base, path, max_age=0, permanent=False):
     CACHE.mkdir(parents=True, exist_ok=True)
     f = _key(base, path)
-    if f.exists() and (permanent or (max_age and time.time() - f.stat().st_mtime < max_age)):
+    sealed = f.with_suffix(".final")  # marks a copy fetched once the data could no longer change
+    if f.exists() and ((permanent and sealed.exists()) or (max_age and time.time() - f.stat().st_mtime < max_age)):
         stats["cached"] += 1
         return json.loads(f.read_text())
     err = None
@@ -48,6 +49,10 @@ def _get(base, path, max_age=0, permanent=False):
                 # FPL answers {"detail": "The game is being updated."} while it processes a gameweek
                 raise ValueError(f"FPL says: {data.get('detail') or data.get('message')}")
             f.write_text(json.dumps(data, separators=(",", ":")))
+            if permanent:
+                sealed.touch()
+            elif sealed.exists():
+                sealed.unlink()
             stats["fetched"] += 1
             return data
         except (urllib.error.URLError, ValueError, TimeoutError, ConnectionError, OSError) as e:
@@ -60,6 +65,13 @@ def _get(base, path, max_age=0, permanent=False):
         print(f"  ! {path}: {err} - using cached copy")
         return json.loads(f.read_text())
     raise RuntimeError(f"Could not fetch {base}{path}: {err}")
+
+
+def forget(path, base=DRAFT):
+    """Make the next run refetch this response (the old copy stays as a fallback if FPL is down)."""
+    sealed = _key(base, path).with_suffix(".final")
+    if sealed.exists():
+        sealed.unlink()
 
 
 def draft(path, **kw):

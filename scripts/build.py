@@ -134,10 +134,12 @@ def build(args):
     histories = {eid: fpl.draft(f"entry/{eid}/history") for eid in eids}
     live, picks = {}, {}
     for g in range(1, current + 1):
-        final = g < current or cur_done
-        live[g] = fpl.draft(f"event/{g}/live", permanent=bool(final and data_checked.get(g)))
+        # Only freeze a gameweek once FPL has confirmed it (data_checked). Before that, auto-subs and
+        # bonus can still change even though the gameweek is flagged finished.
+        locked = bool((g < current or cur_done) and data_checked.get(g))
+        live[g] = fpl.draft(f"event/{g}/live", permanent=locked)
         for eid in eids:
-            picks[(eid, g)] = fpl.draft(f"entry/{eid}/event/{g}", permanent=final)
+            picks[(eid, g)] = fpl.draft(f"entry/{eid}/event/{g}", permanent=locked)
     print(f"  {fpl.stats['fetched']} fetched, {fpl.stats['cached']} from cache")
 
     # ---------------- teams & fixtures
@@ -317,6 +319,9 @@ def build(args):
             calc = sum(gpts(x, g) for x in lineups[(eid, g)][0])
             if calc != score[eid].get(g, 0):
                 issues.append(f"{mname[eid]} GW{g}: history {score[eid].get(g)} vs players {calc}")
+                # Self-heal: drop the cached copies so the next run refetches this gameweek.
+                fpl.forget(f"entry/{eid}/event/{g}")
+                fpl.forget(f"event/{g}/live")
     print("Verification:", "all totals and gameweek scores match" if not issues else f"{len(issues)} mismatches")
     for i in issues[:20]:
         print("  -", i)
