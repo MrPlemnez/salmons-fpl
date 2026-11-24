@@ -62,8 +62,9 @@ gh workflow run update.yml -f rewrite=10
 
 ## Keeping it running
 
-- **Update site** runs every 15 minutes, on off-peak minutes because GitHub delays jobs scheduled on the hour. It fully rebuilds during match windows, and otherwise whenever the published data is over 50 minutes old.
-- **Watchdog** runs every 30 minutes and checks the live site. If the data is older than 40 minutes during a match, or 110 minutes otherwise, it re-triggers **Update site**. If the site has been stale for over 4 hours, the watchdog run fails and GitHub emails you.
+- **Update site** runs every 15 minutes, on off-peak minutes because GitHub delays jobs scheduled on the hour. It fully rebuilds whenever FPL is changing data (`scripts/windows.py`): during matches, after a gameweek's last match until FPL confirms the final points (about 09:00 UK the next morning since 2026/27, capped at 48 hours), while waivers are processing, and for an hour after the trade and team deadlines. Otherwise it rebuilds whenever the published data is over 50 minutes old.
+- Finished gameweeks are only cached for good once FPL marks them `data_checked`. If any gameweek score doesn't match FPL's history, that gameweek is refetched on the next run.
+- **Watchdog** runs every 30 minutes and checks the live site. If the data is older than 40 minutes while FPL is changing data, or 110 minutes otherwise, it re-triggers **Update site**. If the site has been stale for over 4 hours, the watchdog run fails and GitHub emails you.
 - Each section of the build (write-ups, power, trades, Swap Shop, records, draft, waivers, live, preview) is isolated, so one crashing section is skipped and logged without blocking the rest.
 - `scripts/check_data.py` checks `data.json` before every deploy. If it fails, the last good version of the site stays up.
 - The app shows a "Scores may be behind" banner if the data is more than 45 minutes old during a match, or 3 hours otherwise.

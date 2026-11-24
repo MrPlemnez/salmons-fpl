@@ -16,7 +16,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import fpl  # noqa: E402
 
-MATCH_LIMIT = dt.timedelta(minutes=40)   # during a match window
+MATCH_LIMIT = dt.timedelta(minutes=40)   # while FPL is changing data (see windows.py)
 QUIET_LIMIT = dt.timedelta(minutes=110)  # the rest of the time
 ALERT_LIMIT = dt.timedelta(hours=4)      # fail loudly beyond this
 
@@ -36,21 +36,19 @@ except Exception as e:  # noqa: BLE001
     print(f"Couldn't read the live site ({e}) - treating it as stale")
     updated = now - ALERT_LIMIT
 
-in_match = False
+busy_reason = None
 try:
-    for f in fpl.main("fixtures/"):
-        ko = f.get("kickoff_time")
-        if ko and parse(ko) - dt.timedelta(minutes=20) <= now <= parse(ko) + dt.timedelta(hours=3):
-            in_match = True
-            break
+    import windows  # noqa: E402
+    busy_reason = windows.busy(now)
 except Exception as e:  # noqa: BLE001
-    print(f"Couldn't read fixtures ({e})")
+    print(f"Couldn't check FPL's state ({e})")
+in_match = bool(busy_reason)
 
 age = now - updated
 limit = MATCH_LIMIT if in_match else QUIET_LIMIT
 stale = age > limit
 print(f"Site data is {int(age.total_seconds() // 60)} min old; limit {int(limit.total_seconds() // 60)} min "
-      f"({'match window' if in_match else 'quiet'}). {'STALE - re-triggering the update' if stale else 'OK'}")
+      f"({busy_reason or 'quiet'}). {'STALE - re-triggering the update' if stale else 'OK'}")
 if os.environ.get("GITHUB_OUTPUT"):
     with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
         fh.write(f"stale={1 if stale else 0}\n")

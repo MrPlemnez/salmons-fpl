@@ -914,18 +914,19 @@ def all_time_records(seasons):
 # --------------------------------------------------------------------------- gate for the scheduler
 
 def should_run():
-    """True during a match window (any kickoff from 20 min before to 3 h after), otherwise when the
-    live site's data is more than 50 minutes old. (GitHub often starts scheduled jobs 15-30 minutes
-    late, so this goes by the age of the published data rather than the clock.)"""
+    """True whenever FPL is changing data (matches, points being confirmed, waivers, deadlines - see
+    windows.py), otherwise when the live site's data is more than 50 minutes old. (GitHub often
+    starts scheduled jobs late or skips them, so this goes by the age of the published data.)"""
     t = now()
     try:
-        fixtures = fpl.main("fixtures/", max_age=6 * 3600)
-    except Exception:
+        import windows
+        reason = windows.busy(t)
+    except Exception as e:  # noqa: BLE001
+        print(f"Couldn't check FPL's state ({e}) - running anyway")
         return True
-    for f in fixtures:
-        ko = parse_time(f.get("kickoff_time"))
-        if ko and ko - dt.timedelta(minutes=20) <= t <= ko + dt.timedelta(hours=3):
-            return True
+    if reason:
+        print(f"Running: {reason}.")
+        return True
     site = os.environ.get("SITE_DATA_URL")
     if not site:
         return t.minute < 15
@@ -945,6 +946,6 @@ if __name__ == "__main__":
     ap.add_argument("--rewrite", type=int, default=None)
     a = ap.parse_args()
     if a.gate and not a.force and not should_run():
-        print("Outside a match window and the site was updated recently - skipping.")
+        print("FPL is quiet and the site was updated recently - skipping.")
         sys.exit(0)
     build(a)
